@@ -77,7 +77,7 @@ For convenience, we have a live API server running at https://conduit.production
   },
 ```
 
-* remove the root and users routes, the 404 error from express, and replace with the following:
+* remove the root and users routes, the 404 error from express, and replace with the following: this will set a single endpoint '/api'
 
 ```js
 app.get("/api", function(req, res, next) {
