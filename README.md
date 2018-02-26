@@ -94,8 +94,29 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
 # Part 01
 
 * Wire up redux in the index.js
-* Set App Name as Props with mapStateToProps
+* `npm install redux react-redux`
 * You should now see the app name displayed in your browser!
+
+```html
+<link rel="stylesheet" href="//demo.productionready.io/main.css">
+    <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+```
+
+```js
+//index.js root file
+const defaultState = {
+  appName: "Meowdium",
+  articles: null
+};
+
+const reducer = function(state = defaultState, action) {
+  return state;
+};
+
+const store = createStore(reducer);
+...
+```
 
 # Part 02
 
