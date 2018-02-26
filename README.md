@@ -165,6 +165,8 @@ class App extends Component {
 }
 ```
 
+* Ready GO!!!
+
 # Part 03
 
 * Create our ArticleList Component
