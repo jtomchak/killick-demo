@@ -56,7 +56,44 @@ For convenience, we have a live API server running at https://conduit.production
 * `cd killick && npm install`
 * `create-react-app client-app`
 * `cd client-app && npm install -D cross-env`
-* client-app package.json
+* client-app package.json we want to modify the scripts to the following
+
+```js
+"scripts": {
+    "start": "cross-env PORT=4100 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:3000",
+```
+
+* server-app package.json we want to modify the
+* Project root -> `npm install concurrently nodemon`
+
+```js
+"scripts": {
+    "start": "concurrently  \"nodemon ./bin/www\" \"cd client-app && npm start\" "
+  },
+```
+
+* remove the root and users routes, the 404 error from express, and replace with the following:
+
+```js
+app.get("/api", function(req, res, next) {
+  res.send("API all good in the hood!");
+});
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client-app/build/index.html"));
+});
+```
+
+* We should now be able to run `npm start` and see our frontend on 4100 and should be able to reach our backend server on 3000.
+
+![inline](https://imgur.com/4JDdUOM)
 
 ## Functionality overview
 
