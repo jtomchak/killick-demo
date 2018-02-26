@@ -128,6 +128,43 @@ const store = createStore(reducer);
   * MainView that will have your global feed and popular tags
   * Banner, that is just sweet.
 
+```
+killick-demo
+├── README.md
+├── node_modules
+├── package.json
+├── package-lock.json
+├── .gitignore
+├── public
+│   └── images
+│   └── javascript
+│   └── stylesheets
+└── routes
+└── views
+└── app.js <--- Express Server/Backend Client
+|__ client-app <--- React App/FrontEnd Client
+    └── index.css
+    └── index.js
+    └── registerServiceWorker.js
+    └── components
+        └── Home
+            └── Banner.js
+            └── MainView.js
+            └── index.js
+        └── App.js
+```
+
+* then in the App.js file we want to render out our root Home Component
+
+```js
+//app.js
+class App extends Component {
+  render() {
+    return <Home />;
+  }
+}
+```
+
 # Part 03
 
 * Create our ArticleList Component
