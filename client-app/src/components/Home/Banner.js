@@ -1,5 +1,6 @@
 import React from "react";
 /*
+Object Deconstruction
 const Banner = props => {
 const appName = props.appName;
 ...
