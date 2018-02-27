@@ -8,6 +8,7 @@
 * [Part 02](#part-02)
 * [Part 03 A](#part-03-a)
 * [Part 03 B](#part-03-b)
+* [Part 03 C](#part-03-c)
 * [Part 04](#part-04)
 * [Part 05](#part-05)
 * [Part 06](#part-06)
@@ -194,6 +195,14 @@ if (isProduction) {
 ```
 
 # Part 03 B
+
+* importing some data...:-)
+* `mongorestore -d <database_name> <directory_backup>`
+* grab the seed.zip from the repo above. unzip seed and `cd` to that directory **NOT** into it
+* **Mac** `mongorestore -d killick seed` be sure to be in the same directory as your data you are trying to import
+* **Windows** `"C:\Program Files\MongoDB\Server\3.5\bin\mongorestore.exe" -d killick seed`
+
+# Part 03 C
 
 * Create our ArticleList Component
   * ~~2~~ 3 scenarios: we either have articles not existing (fetching from server) or no articles at all.
