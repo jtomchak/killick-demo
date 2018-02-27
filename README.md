@@ -243,7 +243,7 @@ const ArticleSchema = new mongoose.Schema({}); //--> takes an object
 mongoose.model("Article", ArticleSchema);
 ```
 
-* The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural version of your model name. Thus, for the example above, the model Tank is for the tanks collection in the database. The .model() function makes a copy of schema. Make sure that you've added everything you want to schema before calling .model()!
+* The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural version of your model name. Thus, for the example above, the model Article is for the articles collection in the database. The .model() function makes a copy of schema. Make sure that you've added everything you want to schema before calling .model()!
 
 * now we want to load our Articles model **after** we connect to our mongodb
   `require("./models/Article");`

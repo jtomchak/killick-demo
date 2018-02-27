@@ -10,7 +10,6 @@ var isProduction = process.env.NODE_ENV === "production";
 
 var app = express();
 
-app.use(require("./routes").default);
 // view engine setup
 
 app.set("views", path.join(__dirname, "views"));
@@ -27,6 +26,9 @@ if (isProduction) {
   mongoose.set("debug", true);
 }
 
+//import models as soon as we are connected!!!!!!
+require("./models/Article");
+app.use(require("./routes"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger("dev"));
