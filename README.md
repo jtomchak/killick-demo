@@ -200,7 +200,7 @@ if (isProduction) {
 * `mongorestore -d <database_name> <directory_backup>`
 * grab the seed.zip from the repo above. unzip seed and `cd` to that directory **NOT** into it
 * **Mac** `mongorestore -d killick seed` be sure to be in the same directory as your data you are trying to import
-* **Windows** `"C:\Program Files\MongoDB\Server\3.5\bin\mongorestore.exe" -d killick seed`
+* **Windows** `"C:\Program Files\MongoDB\Server\3.4\bin\mongorestore.exe" -d killick seed`
 
 # Part 03 C
 
