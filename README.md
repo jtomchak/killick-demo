@@ -8,26 +8,8 @@
 * [Part 02](#part-02)
 * [Part 03 A](#part-03-a)
 * [Part 03 B](#part-03-b)
-* [Part 03 C](#part-03-c)
 * [Part 04](#part-04)
-* [Part 05](#part-05)
-* [Part 06](#part-06)
-* [Part 07](#part-07)
-* [Part 08](#part-08)
-* [Part 09](#part-09)
-* [Part 10](#part-10)
-* [Part 11](#part-11)
-* [Part 12](#part-12)
-* [Part 13](#part-13)
-* [Part 14](#part-14)
-* [Part 15](#part-15)
-* [Part 16](#part-16)
-* [Part 17](#part-17)
-* [Part 18](#part-18)
-* [Part 19](#part-19)
-* [Part 20](#part-20)
-* [Part 21](#part-21)
-* [Part 22](#part-22)
+* [Part 5](#part-5)
 
 <!-- /TOC -->
 
@@ -202,181 +184,82 @@ if (isProduction) {
 * **Mac** `mongorestore -d killick seed` be sure to be in the same directory as your data you are trying to import
 * **Windows** `"C:\Program Files\MongoDB\Server\3.4\bin\mongorestore.exe" -d killick seed`
 
-# Part 03 C
-
-* Create our ArticleList Component
-  * ~~2~~ 3 scenarios: we either have articles not existing (fetching from server) or no articles at all.
-* Fetch some articles. from `https://codercamps-conduit.herokuapp.com/api`
-  * using superAgent to create Articles
-  * we'll be able to append a bunch of other http requests to our agent as we move along.
-
 # Part 04
 
-* we are gonna dispatch an action on 'componentWillMount' for our component `onLoad: payload => dispatch({ type: "HOME_PAGE_LOADED", payload })`
-* Created a middleware.js to handle the Promise with promiseMiddleware. This will be a collection of functions that will run when we dispatch actions, modify it in some way if it meets some conditional, then pass it on to the store via dispatch.
-* Redux has a method `applyMiddleware` which will take functions, and apply them to actions.
-* Now we can just pass the promise in a dispatch, and it will be resolved, before headed off to the store for reducing. Sweet!!!
-* now we should have our articles conosole logged out if we put `console.log(action.paylaod)` in our reducer in the root index.js
-
-# Part 05
-
-* Now that we've got our first dipatch to reducers working. Let's set up the switch statement to catch on the action type "HOME_PAGE_LOADED"
-* Create and Build Out the ArticlePreview component
-* Add the ArticlePreview component in the ArticleList component
-
-# Part 06
-
-* Refactor to make room for routing. Remove all store stuff from index.js and place into a new file called store.js.
-* Let's add some basic routing for our App and it's nested component. We can't hard code home into anymore(App.js Line 19), because it's not always going to be home, it might be something else, like profile or new article.
-
-# Part 07
-
-* Create the Login component
-* Create a link to the login page in the Header component
-
-# Part 08
-
-* create the reducers directory and refactor out the global feed reducer
-* common reducer
-* auth.js reducer file
-* added combineReducer
-* Update the App component & Home component & MainView component
-* agent for POST to api/users/login
-* Login methods
-* Tackle the reducer for auth, we should have auth properties username, email, token. These _should_ be available as props on the Login component with successful login. Use creds below.
+* Creating an api-endpoint for articles, so we will do a HTTP GET request to localhost:3000/api/articles and it will hopefully return us a payload of articles. hopfully
+* let's move the routing from app.js into `/routes/index.js` like this
 
 ```js
-email: "demo_22@codercamps.com";
-password: "testing001";
+//app.js
+app.use(require("./routes"));
 ```
 
-# Part 09
-
-* Create a ListErrors Component that will take errors as prop, and render's an unordered list
-* Errors _should_ be an array of objects,
-* Also, if the state says there's an auth request in progress, we'll disable the submit button.
-* 'ASYNC_START' what will trigger a conditional in it's respective store propterty to let us know when an async http request is in progress
-
-# Part 10
-
-* Some redirects on login
-* added additional action to the common reducer,
-* learned about componentWillReceiveProps as a lifecycle method. sweet
-* wire up dispatch to 'REDIRECT' to stop the router from constantly redirecting
-* Note to us, react router v4 using a component [v4](https://reacttraining.com/react-router/web/example/auth-workflow)
-
-# Part 11
-
-* `npm install superagent-jwt` or `yarn add superagent-jwt` we are leveraging this to fetch and append the jwt from localstorage on http request
-* Localstorge as a middleware, what is local middleware
-* Set up localstore to capture the jwt.
-* all get and post requests now pull the jwt from localstorage and append correctly to the header
-* reducer APP_LOAD to 'rehydrate' our redux store and make the currentUser request
-
-# Part 12
-
-* Accessing & Displaying Authentication Status Sweet.
-* Update the Header component
-* pass currentUser to it via props
-* We'll need Postman to test the API endpoints with. Check it out [HERE](https://www.getpostman.com/)
-
-# Part 13
-
-* Register Users!!!
-* agent post auth register
-* auth reducer to handle 'REGISTER' a lot like login
-* common reducer to redirect and capture the currentUser!
-* Sweet. Now make a user.
-
-# Part 14
-
-* Settings Component with settings reducer, updated store too
-* http PUT method for '/user' to save user data
-* Click to logout action that will remove currentUser and redirect
-* Still need to reset LocalStore, so currently, logging out then refreshing will infact log you back in. d'oh
-
-# Part 15
-
-* Setting Form that takes currentUser and onSubmitForm as props.
-* Lifecyles for componentWillMount **AND** componentWillRecieveProps
-* Merge objects in willMount before a render, that 'setState' won't work
-* and that meowdium is super amazing
-
-# Part 16
-
-* Remove JWT from localstorage on logout.
-
-# Part 17
-
-* Remember Article Preview? We need to go back and swap out all the a tags for Link tags
-* Added agent http methods to get a single article and the comments of it based on the slug
-* Promise.all. What's that do ? Check it out [HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
-* Article Feature Component to display whole article
-* Use of [dangerouslySetInnerHTML](https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml).
+* now all the routing is abstracted out of `app.js` bc it's getting a bit busy
 
 ```js
-/*
-marked is a library that compiles markdown into HTML - in order to get react to render raw HTML, we need to use this dangerouslySetInnerHTML property, because React sanitizes HTML by default.
-  */
-{
-  __html: marked(article.body);
-}
+// route/index.js
+const router = require("express").Router();
+const API = require("./api");
+
+router.use("/api", API); // --> route matching api call that function
+
+module.exports = router; // --> export router so that we can import it in app.js
 ```
 
-# Part 18
-
-* The great clean up. We address several of the 'warnings' that have been adding up over the course of our project. We should just be left with 2 - these we'll just live with for now. :-)
-* Cleaned up console log outputs to a respectable state.
-
-```
-lowPriorityWarning.js:38 Warning: Accessing PropTypes via the main React package is deprecated, and will be removed in  React v16.0. Use the latest available v15.* prop-types package from npm instead. For info on usage, compatibility, migration and more, see https://fb.me/prop-types-docs
-```
-
-# Part 19
-
-* Article Actions for deleting article with agent del
-* Article meta data. Showing the author and created date, allowing the 'canModified' property if true, the author can delete,.
-* a reducer for 'DELETE_ARTICLE' redirect to '/'
-
-# Part 20
-
-* Finally the Editor!!!!!!!
-* but first an agent call. d'oh!
+* let's make a folder `/routes/api` and add an `index.js`
 
 ```js
-create: article => requests.post("/articles", { article });
+// routes/api/index.js
+const router = require("express").Router();
+const articles = require("./articles");
+
+router.use("/articles", articles);
+
+module.exports = router;
 ```
 
-* Let's create an Editor component that will be our form for posting new articles.
-* We've got a lot of markdown render, really just boils down to fields on change 'title, description, body, tagList, tag'
-* we can dynamically add tags to our article.
-* Methods `handleInputChange, handleTagChange, submitForm, removeTag`
-* now we need a reducer to handle the **"ARTICLE_SUBMITTED":** in both our editor reducer and in our common reducer for redirect.
+* it looks like a lot of unnessary folders, but we are trying to segment off parts of the code, and keep them separate and easy to reason able
 
 ```js
-case "ARTICLE_SUBMITTED":
-const redirectUrl = `article/${action.payload.article.slug}`;
-return { ...state, redirectTo: redirectUrl };
+// routes/api/articles.js
+const router = require("express").Router();
+
+router.get("/", function(req, res, next) {
+  //query database here and return payload
+});
 ```
 
-# Part 21
+* Use [Postman](https://www.getpostman.com/) to check that this endpoint actually works.
 
-* Remove tag method. Removing onClick.
-* Adding routing to handle `/editor/${article.slug}`
-* Now our Editor Component needs to be able to populate if it's editing an article, rather than a _new_ article
-* We've added componentWillRecieveProps to repopulate or remove current Editor state
-* Look closely at the onSubmit method here. We need to call 'create' or 'update' based on if it's a new article or not. We know if it is from `this.props.pramas.slug`
-*
+# Part 5
+
+* We need to set up a mongoose schema now, so we can query the db and send back the results. So let's make a folder!!!! `/models` and we'll create our Articles model there `/models/Articles.js`
 
 ```js
-const promise = this.props.params.slug
-  ? agent.Articles.update(Object.assign(article, slug))
-  : agent.Articles.create(article);
+// /models/Articles.js
+const mongoose = require("mongoose");
+const ArticleSchema = new mongoose.Schema({}); //--> takes an object
+
+mongoose.model("Article", ArticleSchema);
 ```
 
-* **GOAL** By the end of this you should be able to go to one of your articles, select 'edit' and have that information populated on the edit post form, the submit should also update the article
+* The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural version of your model name. Thus, for the example above, the model Tank is for the tanks collection in the database. The .model() function makes a copy of schema. Make sure that you've added everything you want to schema before calling .model()!
 
-# Part 22
+* now we want to load our Articles model **after** we connect to our mongodb
+  `require("./models/Article");`
 
-* Add the ability to present and add comments to other peoples posts.
-* We are creating several Components in our Article folder. CommentContainer will have serveral pieces within it. A CommonentList with CommentInput for new comments. A DeleteButton to, um, delete to comment.
+* Now we can query our Model in the function that is called when our `/api/articles` gets an HTTP request.
+
+```js
+// routes/api/articles.js
+[...]
+const Article = mongoose.model('Article');
+[...]
+  Article.finde({}).exec()
+  .then(results => {
+    return res.json({
+      articles: results
+    })
+  })
+  .catch(next); //---> where's this go??
+```
