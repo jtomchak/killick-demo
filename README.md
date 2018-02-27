@@ -6,7 +6,8 @@
   * [Functionality overview](#functionality-overview)
 * [Part 01](#part-01)
 * [Part 02](#part-02)
-* [Part 03](#part-03)
+* [Part 03 A](#part-03-a)
+* [Part 03 B](#part-03-b)
 * [Part 04](#part-04)
 * [Part 05](#part-05)
 * [Part 06](#part-06)
@@ -167,7 +168,32 @@ class App extends Component {
 
 * Ready GO!!!
 
-# Part 03
+# Part 03 A
+
+* db connection
+* `npm install mongoose` this is our ORM. Object Relationalskdfs Mapping! install it to the server/backend. _NOT_ the client-app.
+* `var mongoose = require("mongoose");` <---import into server app.js
+
+```js
+//app.js after view
+var isProduction = process.env.NODE_ENV === "production";
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "jade");
+
+//connect to our database monogo
+if (isProduction) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect("mongodb://localhost/killick", function(err) {
+    if (err) return console.error(err);
+    console.log("THE DB, mongo, is connected, and I ROCK");
+  });
+  mongoose.set("debug", true);
+}
+```
+
+# Part 03 B
 
 * Create our ArticleList Component
   * ~~2~~ 3 scenarios: we either have articles not existing (fetching from server) or no articles at all.
