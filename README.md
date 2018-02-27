@@ -9,7 +9,7 @@
 * [Part 03 A](#part-03-a)
 * [Part 03 B](#part-03-b)
 * [Part 04](#part-04)
-* [Part 5](#part-5)
+* [Part 05](#part-05)
 
 <!-- /TOC -->
 
@@ -231,7 +231,7 @@ router.get("/", function(req, res, next) {
 
 * Use [Postman](https://www.getpostman.com/) to check that this endpoint actually works.
 
-# Part 5
+# Part 05
 
 * We need to set up a mongoose schema now, so we can query the db and send back the results. So let's make a folder!!!! `/models` and we'll create our Articles model there `/models/Articles.js`
 

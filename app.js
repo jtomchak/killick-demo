@@ -8,12 +8,11 @@ var mongoose = require("mongoose");
 
 var isProduction = process.env.NODE_ENV === "production";
 
-var index = require("./routes/index");
-var users = require("./routes/users");
-
 var app = express();
 
+app.use(require("./routes").default);
 // view engine setup
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
