@@ -7,7 +7,27 @@ import React, { Component } from "react";
 3.  articles were returned from the server, sweet!!.
 */
 
-const Articles = props => {
+const ArticleList = props => {
+  //loading articles
+  if (!props.articles) {
+    return <div className="article-preview">Loading.......</div>;
+  }
+
   //fetching articles
-  //
+  if (props.articles.length === 0) {
+    return <div className="article-preview">No Articles are here........sad. really just sad.</div>;
+  }
+
+  //sweet articles
+  return (
+    <div className="article-preview">
+      {props.articles.map(article => (
+        <div key={article.slug}>
+          <h2>{article.title}</h2>
+        </div>
+      ))}
+    </div>
+  );
 };
+
+export default ArticleList;
