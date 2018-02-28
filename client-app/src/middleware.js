@@ -9,7 +9,7 @@ const promiseMiddleware = store => next => action => {
       .catch(error => {
         action.error = true;
         console.log(error);
-        action.payload = error.response.body;
+        action.payload = error.message;
         store.dispatch(action);
       });
     return;

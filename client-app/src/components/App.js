@@ -3,11 +3,10 @@ import { connect } from "react-redux";
 
 import Home from "./Home";
 
-const mapStateToProps = state => ({
-  appName: state.appName
-});
-
 class App extends Component {
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+  }
   render() {
     return <Home />;
   }

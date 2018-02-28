@@ -2,8 +2,6 @@ import axios from "axios";
 
 const API_ROOT = "/api";
 
-const responseBody = res => res.body;
-
 const responseData = res => res.data;
 
 const requests = {
