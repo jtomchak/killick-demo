@@ -14,6 +14,8 @@
 * [Part 07](#part-07)
 * [Part 08](#part-08)
 * [Part 09](#part-09)
+* [Part 10](#part-10)
+* [Part 11](#part-11)
 
 <!-- /TOC -->
 
@@ -303,3 +305,103 @@ const Article = mongoose.model('Article');
 * ArticlePreview component. BC we want to show more than just the title, right? How many pieces of flair do you wear? Just the minium?
 * ArticlePreview will be a shared component that takes article as a prop and returns JSX markup for rendering the preview.
   ![Imgur](https://i.imgur.com/881PwAY.png)
+
+# Part 10
+
+* The great refactor, making room for router
+* `npm install react-router-dom`
+* Refactor to make room for routing. Remove all store stuff from index.js and place into a new file called store.js.
+* Let's add some basic routing for our App and it's nested component. We can't hard code home into anymore(App.js Line 19), because it's not always going to be home, it might be something else, like profile or new article.
+
+# Part 11
+
+* Authorization and Authentication
+* We need the backend to be able to
+  * sign up new users
+  * login existing users
+  * Give out a JSON Web Token (JWT) for existing users to make repeated requests
+* Backend install `npm install express-jwt jsonwebtoken passport passport-local express-session mongoose-unique-validator crypto`
+* First lets make a user model and get it loaded
+
+```js
+// models/User.js
+[...]
+
+const UserSchema = new mongoose.Schema{(
+  username:String,
+  email: String,
+  bio: String,
+  image: String,
+  favorites: ???,
+  hash: String, //--> What's this?
+  salt: String //--> What's this too?
+)}
+
+[...]
+```
+
+* Then we can implement passport local strategy [Passport](http://www.passportjs.org/)
+
+```js
+// passport.js
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "user[email]",
+      passwordField: "user[password]"
+    },
+    function(email, password, done) {
+      User.findOne({ email: email })
+        .then(function(user) {
+          if (!user || !user.validPassword(password)) {
+            return done(null, false, { errors: { "email or password": "is invalid" } });
+          }
+
+          return done(null, user);
+        })
+        .catch(done);
+    }
+  )
+);
+```
+
+* Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models. `require("./config/passport");`
+* Now let's create a route, an endpoint `/api/users/login` as an HTTP POST for signing up a new user!
+
+```js
+// routes/api/users
+[...]
+router.post('/users/login', function(req, res, next){
+  if(!req.body.user.email){
+    return res.status(422).json({errors: {email: "can't be blank"}});
+  }
+
+  if(!req.body.user.password){
+    return res.status(422).json({errors: {password: "can't be blank"}});
+  }
+
+  passport.authenticate('local', {session: false}, function(err, user, info){
+    if(err){ return next(err); }
+
+    if(user){
+      user.token = user.generateJWT();
+      return res.json({user: user.toAuthJSON()});
+    } else {
+      return res.status(422).json(info);
+    }
+  })(req, res, next);
+});
+
+[...]
+```
+
+* login using the json body below, using just Postman. We haven't built a front end yet, so you know, can't test it that way. lol.
+
+```json
+{
+  "user": {
+    "email": "motorboat@usaa.net",
+    "password": "pirate"
+  }
+}
+```
