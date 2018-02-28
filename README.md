@@ -319,7 +319,7 @@ const Article = mongoose.model('Article');
 * We need the backend to be able to
   * sign up new users
   * login existing users
-  * Give out a JSON Web Token (JWT) for existing users to make repeated requests
+  * Give out a JSON Web Token (JWT) for existing users to make repeated requests [More JWT](https://jwt.io/introduction)
 * Backend install `npm install express-jwt jsonwebtoken passport passport-local express-session mongoose-unique-validator crypto`
 * First lets make a user model and get it loaded
 
