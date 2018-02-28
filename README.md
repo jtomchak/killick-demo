@@ -300,4 +300,6 @@ const Article = mongoose.model('Article');
 
 # Part 09
 
-* Routing.
+* ArticlePreview component. BC we want to show more than just the title, right? How many pieces of flair do you wear? Just the minium?
+* ArticlePreview will be a shared component that takes article as a prop and returns JSX markup for rendering the preview.
+  ![Imgur](https://i.imgur.com/881PwAY.png)
