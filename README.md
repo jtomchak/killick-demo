@@ -11,6 +11,7 @@
 * [Part 04](#part-04)
 * [Part 05](#part-05)
 * [Part 06](#part-06)
+* [Part 07 **HELP ME**](#part-07-help-me)
 
 <!-- /TOC -->
 
@@ -280,3 +281,11 @@ const Article = mongoose.model('Article');
   * this will give us some added benefits beyond the standar fetch request we'll use later.
   * [axios](https://github.com/axios/axios)
 * We want to make http request from several different components, we we are going to set up a services file that will leverage all our http reqeust in a central location.
+
+# Part 07 **HELP ME**
+
+* we are gonna dispatch an action on 'componentWillMount' for our component onLoad: payload => dispatch({ type: "HOME_PAGE_LOADED", payload })
+* Created a middleware.js to handle the Promise with promiseMiddleware. This will be a collection of functions that will run when we dispatch actions, modify it in some way if it meets some conditional, then pass it on to the store via dispatch.
+* Redux has a method applyMiddleware which will take functions, and apply them to actions.
+* Now we can just pass the promise in a dispatch, and it will be resolved, before headed off to the store for reducing. Sweet!!!
+* **GOAL** now we should have our articles conosole logged out if we put console.log(action.paylaod) in our reducer in the root index.js

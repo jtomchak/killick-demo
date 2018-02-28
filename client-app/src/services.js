@@ -4,8 +4,10 @@ const API_ROOT = "/api";
 
 const responseBody = res => res.body;
 
+const responseData = res => res.data;
+
 const requests = {
-  get: url => axios.get(`${API_ROOT}${url}`).then(responseBody)
+  get: url => axios.get(`${API_ROOT}${url}`).then(responseData)
 };
 
 const Articles = {

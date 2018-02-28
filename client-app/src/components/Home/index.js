@@ -6,14 +6,17 @@ import Banner from "./Banner";
 import services from "../../services";
 
 const mapStateToProps = state => ({
-  appName: state.appName
+  appName: state.appName,
+  articles: state.articles
+});
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => dispatch({ type: "HOME_PAGE_LOADED", payload })
 });
 
 class Home extends Component {
   componentDidMount() {
-    services.Articles.all()
-      .then(results => console.log(results))
-      .catch(err => console.log(err));
+    this.props.onLoad(services.Articles.all());
   }
   render() {
     return (
@@ -34,4 +37,4 @@ class Home extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
