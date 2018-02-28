@@ -10,6 +10,7 @@
 * [Part 03 B](#part-03-b)
 * [Part 04](#part-04)
 * [Part 05](#part-05)
+* [Part 06](#part-06)
 
 <!-- /TOC -->
 
@@ -153,6 +154,14 @@ class App extends Component {
 
 # Part 03 A
 
+* get monogo running
+
+  * **WINDOWS**
+
+    * `cd C:\`
+    * `md \data\db`
+    * `"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath C:\data\db`
+
 * db connection
 * `npm install mongoose` this is our ORM. Object Relationalskdfs Mapping! install it to the server/backend. _NOT_ the client-app.
 * `var mongoose = require("mongoose");` <---import into server app.js
@@ -263,3 +272,11 @@ const Article = mongoose.model('Article');
   })
   .catch(next); //---> where's this go??
 ```
+
+# Part 06
+
+* Fetching our list of Articles on the client-app, from our newly created API endpoint.
+* we'll be leveraging axios, `npm install axios` **IN THE CLIENT-APP**
+  * this will give us some added benefits beyond the standar fetch request we'll use later.
+  * [axios](https://github.com/axios/axios)
+* We want to make http request from several different components, we we are going to set up a services file that will leverage all our http reqeust in a central location.

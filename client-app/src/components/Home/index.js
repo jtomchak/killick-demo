@@ -3,11 +3,18 @@ import { connect } from "react-redux";
 import MainView from "./MainView";
 import Banner from "./Banner";
 
+import services from "../../services";
+
 const mapStateToProps = state => ({
   appName: state.appName
 });
 
 class Home extends Component {
+  componentDidMount() {
+    services.Articles.all()
+      .then(results => console.log(results))
+      .catch(err => console.log(err));
+  }
   render() {
     return (
       <div className="home-page">
