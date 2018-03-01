@@ -343,7 +343,35 @@ const UserSchema = new mongoose.Schema{(
 * Then we can implement passport local strategy [Passport](http://www.passportjs.org/)
 
 ```js
-// passport.js
+// passport/init.js
+const local = require("./localStrategy");
+const mongoose = require("mongoose");
+var User = mongoose.model("User");
+
+module.exports = function(passport) {
+  // Passport needs to be able to serialize and deserialize users to support persistent login sessions
+  passport.serializeUser(function(user, done) {
+    console.log("serializing user: ");
+    console.log(user);
+    done(null, user._id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      console.log("deserializing user:", user);
+      done(err, user);
+    });
+  });
+
+  // Setting up Passport Strategies for Facebook and Twitter
+  local(passport);
+};
+```
+
+\*
+
+```js
+// passport/local.js
 passport.use(
   new LocalStrategy(
     {
@@ -366,7 +394,23 @@ passport.use(
 ```
 
 * `require('dotenv').config();` this loads our .env file with secrets!
-* Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models. `require("./passport/init");`
+
+```js
+// .env
+SUPER_JERK = sodifiondfosndofinsd;
+```
+
+* Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models.
+
+```js
+// app.js
+// Configuring Passport
+app.use(passport.initialize());
+// Initialize Passport
+var initPassport = require("./passport/init");
+initPassport(passport);
+```
+
 * Now let's create a route, an endpoint `/api/users/login` as an HTTP POST for signing up a new user!
 
 ```js
