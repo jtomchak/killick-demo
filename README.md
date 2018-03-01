@@ -470,6 +470,7 @@ router.post('/users/login', function(req, res, next){
 * We're going to add a POST to our users router like so
 
 ```js
+// routes/api/users.js
 router.post("/users", function(req, res, next) {
   var user = new User(); //---> create a new instance of our User model. Remember the `new` keyword?
 
