@@ -19,6 +19,7 @@
 * [Part 12](#part-12)
 * [Part 13](#part-13)
   * [TO THE CLIENT!!!!](#to-the-client)
+* [Part-14](#part-14)
 
 <!-- /TOC -->
 
@@ -523,4 +524,14 @@ router.post("/users", function(req, res, next) {
     <Route exact path="/" component={Home} />
   </Switch>
 </div>
+```
+
+# Part-14
+
+* Now we can click to the login page, we need a login component!
+* Import it into App.js and add it to the Switch Routing
+
+```js
+// src/components/App.js
+<Route path="/" component={Login} />
 ```

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 import Header from "./Header";
 import Home from "./Home";
-import { connect } from "react-redux";
+import Login from "./Login";
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -15,6 +16,7 @@ class App extends Component {
         <Header appName={this.props.appName} />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/" component={Login} />
         </Switch>
       </div>
     );
