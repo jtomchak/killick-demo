@@ -366,7 +366,7 @@ passport.use(
 ```
 
 * `require('dotenv').config();` this loads our .env file with secrets!
-* Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models. `require("./config/passport");`
+* Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models. `require("./passport/init");`
 * Now let's create a route, an endpoint `/api/users/login` as an HTTP POST for signing up a new user!
 
 ```js
