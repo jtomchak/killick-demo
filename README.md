@@ -17,6 +17,8 @@
 * [Part 10](#part-10)
 * [Part 11](#part-11)
 * [Part 12](#part-12)
+* [Part 13](#part-13)
+  * [TO THE CLIENT!!!!](#to-the-client)
 
 <!-- /TOC -->
 
@@ -489,3 +491,36 @@ router.post("/users", function(req, res, next) {
 
 * Now we should get a payload back when POST'ing a new user JSON !!!!!!!
 * What happens if we try sign up a user again?
+
+# Part 13
+
+## TO THE CLIENT!!!!
+
+* Front end route and Login Form
+* Create a Header Component for links for 'Login' and 'Home' that takes props 'appName'
+
+```js
+// src/components/Header.js
+<Link to="/" className="nav-link">
+                Home
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="login" className="nav-link">
+                Sign in
+              </Link>
+```
+
+* Let's modifiy the App component to handle our new navigation header. We want the nav to **ALWAYS** show up, and then switch on a particular route after than. We've also removed the switch from `index.js`
+
+```js
+// src/components/App.js
+//we've map app name from redux to props of the app component
+<div>
+  <Header appName={this.props.appName} />
+  <Switch>
+    <Route exact path="/" component={Home} />
+  </Switch>
+</div>
+```

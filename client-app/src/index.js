@@ -11,9 +11,7 @@ import registerServiceWorker from "./registerServiceWorker";
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Switch>
-        <Route path="/" component={App} />
-      </Switch>
+      <Route path="/" component={App} />
     </Router>
   </Provider>,
   document.getElementById("root")
