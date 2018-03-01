@@ -53,6 +53,19 @@ UserSchema.methods.toAuthJSON = function() {
   };
 };
 
+//Pre Save Method!
+UserSchema.pre("save", function(next) {
+  var user = this;
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified("password")) return next();
+
+  this.salt = crypto.randomBytes(16).toString("hex");
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, "sha512").toString("hex");
+  user.password = hash;
+  next();
+});
+
 //Create JWT for User
 UserSchema.methods.generateJWT = function() {
   var today = new Date();

@@ -29,4 +29,20 @@ router.post("/users/login", function(req, res, next) {
   })(req, res, next);
 });
 
+//User Sign up
+router.post("/users", function(req, res, next) {
+  var user = new User(); //---> create a new instance of our User model. Remember the `new` keyword?
+
+  user.username = req.body.user.username; //---> get username
+  user.email = req.body.user.email; //---> get email
+  user.password = req.body.user.password; //---> DON'T SAVE PASSWORD TO DB!!!!!
+
+  user
+    .save() //---> save new user to db
+    .then(function() {
+      return res.json({ user: user.toAuthJSON() });
+    })
+    .catch(next);
+});
+
 module.exports = router;

@@ -16,6 +16,7 @@
 * [Part 09](#part-09)
 * [Part 10](#part-10)
 * [Part 11](#part-11)
+* [Part 12](#part-12)
 
 <!-- /TOC -->
 
@@ -450,3 +451,40 @@ router.post('/users/login', function(req, res, next){
   }
 }
 ```
+
+# Part 12
+
+* Now that we can login, we want to be able sign new users.
+* should be able to HTTP POST to `localhost:3000/api/users` with a body
+
+```json
+{
+  "user": {
+    "username": "CaptianUnderpants",
+    "email": "underpants@juno.net",
+    "password": "pirate"
+  }
+}
+```
+
+* We're going to add a POST to our users router like so
+
+```js
+router.post("/users", function(req, res, next) {
+  var user = new User(); //---> create a new instance of our User model. Remember the `new` keyword?
+
+  user.username = req.body.user.username; //---> get username
+  user.email = req.body.user.email; //---> get email
+  user.setPassword(req.body.user.password); //---> where did setPassword come
+
+  user
+    .save() //---> save new user to db
+    .then(function() {
+      return res.json({ user: user.toAuthJSON() });
+    })
+    .catch(next);
+});
+```
+
+* Now we should get a payload back when POST'ing a new user JSON !!!!!!!
+* What happens if we try sign up a user again?
