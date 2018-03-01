@@ -320,7 +320,7 @@ const Article = mongoose.model('Article');
   * sign up new users
   * login existing users
   * Give out a JSON Web Token (JWT) for existing users to make repeated requests [More JWT](https://jwt.io/introduction)
-* Backend install `npm install express-jwt jsonwebtoken passport passport-local express-session mongoose-unique-validator crypto`
+* Backend install `npm install express-jwt jsonwebtoken passport passport-local express-session mongoose-unique-validator crypto dotenv`
 * First lets make a user model and get it loaded
 
 ```js
@@ -365,6 +365,7 @@ passport.use(
 );
 ```
 
+* `require('dotenv').config();` this loads our .env file with secrets!
 * Then we want to be sure to load the passort in app, after db connect, just like we have for User and Articles models. `require("./config/passport");`
 * Now let's create a route, an endpoint `/api/users/login` as an HTTP POST for signing up a new user!
 

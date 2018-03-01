@@ -2,3 +2,4 @@ node_modules
 
 /client-app/build
 
+.env

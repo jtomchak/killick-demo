@@ -1,10 +1,9 @@
-var mongoose = require("mongoose");
-var uniqueValidator = require("mongoose-unique-validator");
-var crypto = require("crypto");
-var jwt = require("jsonwebtoken");
-var secret = require("../config").secret;
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
-var UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -34,5 +33,40 @@ var UserSchema = new mongoose.Schema(
     usePushEach: true
   }
 );
+
+UserSchema.plugin(uniqueValidator, { message: "is already taken." });
+
+//validate user password
+UserSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, "sha512").toString("hex");
+  return this.hash === hash;
+};
+
+//vaild user payload when auth'd
+UserSchema.methods.toAuthJSON = function() {
+  return {
+    username: this.username,
+    email: this.email,
+    bio: this.bio,
+    image: this.image || "https://static.productionready.io/images/smiley-cyrus.jpg",
+    token: this.generateJWT()
+  };
+};
+
+//Create JWT for User
+UserSchema.methods.generateJWT = function() {
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 60);
+
+  return jwt.sign(
+    {
+      id: this._id, //--> User's unique _id from mongo
+      username: this.username, //--> User's username
+      exp: parseInt(exp.getTime() / 1000)
+    },
+    process.env.SUPER_JERK // --> already loaded from .env shhhhhhhh!
+  );
+};
 
 mongoose.model("User", UserSchema);
