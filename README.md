@@ -533,5 +533,5 @@ router.post("/users", function(req, res, next) {
 
 ```js
 // src/components/App.js
-<Route path="/" component={Login} />
+<Route path="/login" component={Login} />
 ```
