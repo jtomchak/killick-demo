@@ -7,6 +7,7 @@ const defaultState = {
 };
 
 const reducer = function(state = defaultState, action) {
+  console.log(action.type, action.payload);
   switch (action.type) {
     case "HOME_PAGE_LOADED":
       return action.error

@@ -21,6 +21,7 @@
   * [TO THE CLIENT!!!!](#to-the-client)
 * [Part-14](#part-14)
 * [Part-15](#part-15)
+* [Part-16](#part-16)
 
 <!-- /TOC -->
 
@@ -539,11 +540,14 @@ router.post("/users", function(req, res, next) {
 
 # Part-15
 
+* service for POST to api/users/login
+* Login methods for `handleOnChange` and `handleOnSubmit`
+* dispatch the login service promise as an action to redux
+* Tackle the reducer for auth, we should have auth properties username, email, token. These should be available as props on the Login component with successful login. Use any of the credintals that you make from step 12 with Postman.
+
+# Part-16
+
 * create the reducers directory and refactor out the global feed reducer
 * common reducer
 * auth.js reducer file
 * added combineReducer
-* Update the App component & Home component & MainView component
-* service for POST to api/users/login
-* Login methods
-* Tackle the reducer for auth, we should have auth properties username, email, token. These should be available as props on the Login component with successful login. Use any of the credintals that you make from step 12 with Postman.

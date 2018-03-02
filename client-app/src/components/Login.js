@@ -1,7 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
+import services from "../services";
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (email, password) =>
+    dispatch({ type: "LOGIN", payload: services.Auth.login(email, password) })
+});
 
 class Login extends React.Component {
+  state = {
+    email: null,
+    password: null
+  };
+
+  handleInputOnChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleOnSubmit = event => {
+    event.preventDefault();
+    //dispatch the login service promise as an action to redux
+    this.props.onSubmit(this.state.email, this.state.password);
+  };
+
   render() {
     return (
       <div className="auth-page">
@@ -13,21 +36,25 @@ class Login extends React.Component {
                 <a>Need an account?</a>
               </p>
 
-              <form>
+              <form onSubmit={this.handleOnSubmit}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
+                      onChange={this.handleInputOnChange}
                       className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
+                      name="email"
                     />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <input
+                      onChange={this.handleInputOnChange}
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Password"
+                      name="password"
                     />
                   </fieldset>
 
@@ -44,4 +71,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
