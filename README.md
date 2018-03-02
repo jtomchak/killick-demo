@@ -20,6 +20,7 @@
 * [Part 13](#part-13)
   * [TO THE CLIENT!!!!](#to-the-client)
 * [Part-14](#part-14)
+* [Part-15](#part-15)
 
 <!-- /TOC -->
 
@@ -535,3 +536,14 @@ router.post("/users", function(req, res, next) {
 // src/components/App.js
 <Route path="/" component={Login} />
 ```
+
+# Part-15
+
+* create the reducers directory and refactor out the global feed reducer
+* common reducer
+* auth.js reducer file
+* added combineReducer
+* Update the App component & Home component & MainView component
+* service for POST to api/users/login
+* Login methods
+* Tackle the reducer for auth, we should have auth properties username, email, token. These should be available as props on the Login component with successful login. Use any of the credintals that you make from step 12 with Postman.
