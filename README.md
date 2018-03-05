@@ -598,8 +598,7 @@ const mapStateToProps = state => ({ ...state.auth });
 
 ## The great redirect
 
-* `npm install react-router-redux@5.0.0-alpha.6`
-  `npm install --save history`
+* `npm install react-router-redux@next history`
 * redirect reducer to handle redirect actions, so a component can send an action type 'REDIRECT' and the reducer will handle it and `App.js` will do the actual routing.
 * We need to init react-router-redux in our store
 
