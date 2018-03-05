@@ -8,8 +8,7 @@ const promiseMiddleware = store => next => action => {
       })
       .catch(error => {
         action.error = true;
-        console.log(error);
-        action.payload = error.message;
+        action.payload = error.response.data.errors;
         store.dispatch(action);
       });
     return;

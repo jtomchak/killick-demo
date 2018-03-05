@@ -556,9 +556,21 @@ router.post("/users", function(req, res, next) {
 # Part-17
 
 * List not loading ? Fix that Error!!!!!
+  * note. we don't need to wire both `home.index` and `home.MainView` to redux.
+  * Just the `home.index` gets mapped to redux, then we pass articles via props.
 * Error handling
 * ListErrors as a component
-* this component will take errors as `props` and render a react component ul element
+* Fix our middleware to handle axios errors
+
+```js
+ .catch(error => {
+        action.error = true;
+        action.payload = error.response.data.errors;
+        store.dispatch(action);
+      });
+```
+
+* ListErrors component will take errors as `props` and render a react component ul element
 
 ```js
 {
@@ -577,3 +589,5 @@ router.post("/users", function(req, res, next) {
 //login component
 const mapStateToProps = state => ({ ...state.auth });
 ```
+
+* we now have access to `state.auth.inProgress` so we can disable the login button to prevent lots of crazy clicking. `disabled={this.props.inProgress}`

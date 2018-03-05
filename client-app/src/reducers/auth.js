@@ -5,7 +5,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         ...action.payload.user,
-        inProgess: false
+        inProgess: false,
+        errors: action.error ? action.payload : null
       };
       //need to handle some error.
     }
