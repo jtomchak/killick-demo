@@ -25,6 +25,7 @@
 * [Part-17](#part-17)
 * [Part-18](#part-18)
   * [The great redirect](#the-great-redirect)
+* [Part-19](#part-19)
 
 <!-- /TOC -->
 
@@ -649,4 +650,29 @@ case "LOGIN": {
         currentUser: action.error ? null : action.payload.user,
         redirectTo: action.error ? null : "/"
       };
+```
+
+# Part-19
+
+* Conditionally render the `Header.js` based on if user is logged in our not
+* `Header.js` will render LoggedInView or LoggedOutView based on `props.currentUser` that gets passed into it from it's partent component, `App.js`
+
+```js
+class Header extends React.Component {
+  render() {
+    return (
+      <nav className="navbar navbar-light">
+        <div className="container">
+          <Link to="/" className="navbar-brand">
+            {this.props.appName.toLowerCase()}
+          </Link>
+
+          <LoggedOutView currentUser={this.props.currentUser} />
+
+          <LoggedInView currentUser={this.props.currentUser} />
+        </div>
+      </nav>
+    );
+  }
+}
 ```
