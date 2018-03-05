@@ -22,6 +22,7 @@
 * [Part-14](#part-14)
 * [Part-15](#part-15)
 * [Part-16](#part-16)
+* [Part-17](#part-17)
 
 <!-- /TOC -->
 
@@ -551,3 +552,28 @@ router.post("/users", function(req, res, next) {
 * common reducer
 * auth.js reducer file
 * added combineReducer
+
+# Part-17
+
+* List not loading ? Fix that Error!!!!!
+* Error handling
+* ListErrors as a component
+* this component will take errors as `props` and render a react component ul element
+
+```js
+{
+  Object.keys(errors).map(key => {
+    return (
+      <li key={key}>
+        {key} {errors[key]}
+      </li>
+    );
+  });
+}
+```
+
+```js
+//any of the properties on store auth will be spread out to props of the
+//login component
+const mapStateToProps = state => ({ ...state.auth });
+```
