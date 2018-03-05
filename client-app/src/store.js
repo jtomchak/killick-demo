@@ -1,25 +1,15 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { promiseMiddleware } from "./middleware";
 
-const defaultState = {
-  appName: "Killick",
-  articles: null
-};
+import auth from "./reducers/auth";
+import common from "./reducers/common";
+import home from "./reducers/home";
 
-const reducer = function(state = defaultState, action) {
-  console.log(action.type, action.payload);
-  switch (action.type) {
-    case "HOME_PAGE_LOADED":
-      return action.error
-        ? state
-        : {
-            ...state,
-            articles: action.payload.articles
-          };
-    default:
-      return state;
-  }
-};
+const reducer = combineReducers({
+  auth,
+  common,
+  home
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reduxStore = createStore(reducer, composeEnhancers(applyMiddleware(promiseMiddleware)));

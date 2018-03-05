@@ -6,8 +6,8 @@ import Banner from "./Banner";
 import services from "../../services";
 
 const mapStateToProps = state => ({
-  appName: state.appName,
-  articles: state.articles
+  appName: state.common.appName,
+  articles: state.home.articles
 });
 
 const mapDispatchToProps = dispatch => ({
