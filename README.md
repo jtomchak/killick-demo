@@ -591,3 +591,10 @@ const mapStateToProps = state => ({ ...state.auth });
 ```
 
 * we now have access to `state.auth.inProgress` so we can disable the login button to prevent lots of crazy clicking. `disabled={this.props.inProgress}`
+
+# Part-18
+
+## The great redirect
+
+* `npm install react-router-redux`
+* redirect reducer to handle redirect actions, so a component can send an action type 'REDIRECT' and the reducer will handle it and `App.js` will do the actual routing.
