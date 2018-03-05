@@ -1,8 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
+import { routerReducer, routerMiddleware } from "react-router-redux";
 import { promiseMiddleware } from "./middleware";
 
-import { routerMiddleware } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 
 import auth from "./reducers/auth";
@@ -22,6 +21,7 @@ const reducer = combineReducers({
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 export const reduxStore = createStore(
   reducer,
   composeEnhancers(applyMiddleware(myRouterMiddleware, promiseMiddleware))

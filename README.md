@@ -23,6 +23,8 @@
 * [Part-15](#part-15)
 * [Part-16](#part-16)
 * [Part-17](#part-17)
+* [Part-18](#part-18)
+  * [The great redirect](#the-great-redirect)
 
 <!-- /TOC -->
 
@@ -596,5 +598,56 @@ const mapStateToProps = state => ({ ...state.auth });
 
 ## The great redirect
 
-* `npm install react-router-redux`
+* `npm install react-router-redux@5.0.0-alpha.6`
+  `npm install --save history`
 * redirect reducer to handle redirect actions, so a component can send an action type 'REDIRECT' and the reducer will handle it and `App.js` will do the actual routing.
+* We need to init react-router-redux in our store
+
+```js
+//src/store.js
+// Build the middleware for intercepting and dispatching navigation actions
+const myRouterMiddleware = routerMiddleware(history);
+
+const reducer = combineReducers({
+  auth,
+  common,
+  home,
+  router: routerReducer
+});
+```
+
+* we also need to replace `BrowserRouter as Router` with `ConnectedRouter` from react-router-redux
+
+```js
+//src/index.js
+  <Provider store={reduxStore}>
+    <ConnectedRouter history={history}>
+      <Route path="/" component={App} />
+    </ConnectedRouter>
+  </Provider>,
+```
+
+* add Dispatch actions to `App.js`
+
+```js
+//components/App.js
+const mapDispatchToProps = dispatch => ({
+  onLoad: (payload, token) => dispatch({ type: "APP_LOAD", payload, token, skipTracking: true }),
+  onRedirect: () => dispatch({ type: "REDIRECT" })
+});
+```
+
+* `App.js` also gets some lifecycle methods `componentWillReceiveProps` & `componentWillMount`
+
+* Lastly in the commone reducer, we want to handle `LOGIN` with a redirect if it's successful, meaing action.error is false.
+
+```js
+//reducers/common.js
+case "LOGIN": {
+      return {
+        ...state,
+        token: action.error ? null : action.payload.user.token,
+        currentUser: action.error ? null : action.payload.user,
+        redirectTo: action.error ? null : "/"
+      };
+```

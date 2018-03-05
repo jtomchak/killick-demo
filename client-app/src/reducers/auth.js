@@ -3,11 +3,9 @@ export default (state = {}, action) => {
     case "LOGIN": {
       return {
         ...state,
-        ...action.payload.user,
         inProgess: false,
         errors: action.error ? action.payload : null
       };
-      //need to handle some error.
     }
     case "ASYNC_START":
       if (action.subtype === "LOGIN" || action.subtype === "REGISTER") {
