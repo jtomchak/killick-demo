@@ -1,4 +1,4 @@
-import { setToken } from "./services";
+import services from "./services";
 
 const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
@@ -24,8 +24,9 @@ const localStorageMiddleware = store => next => action => {
     if (!action.error) {
       window.localStorage.setItem("jwt", action.payload.user.token);
       //set axios header auth instance
-      setToken(action.payload.user.token);
+      services.setToken(action.payload.user.token);
     }
+    services;
   }
   next(action);
 };
