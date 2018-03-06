@@ -1,5 +1,4 @@
 var jwt = require("express-jwt");
-// var secret = require("../config").secret; TODO: replace with dotenv
 
 function getTokenFromHeader(req) {
   if (
@@ -14,12 +13,12 @@ function getTokenFromHeader(req) {
 
 var auth = {
   required: jwt({
-    secret: secret,
+    secret: process.env.SUPER_JERK,
     userProperty: "payload",
     getToken: getTokenFromHeader
   }),
   optional: jwt({
-    secret: secret,
+    secret: process.env.SUPER_JERK,
     userProperty: "payload",
     credentialsRequired: false,
     getToken: getTokenFromHeader

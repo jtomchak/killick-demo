@@ -30,6 +30,8 @@
   * [Save JWT to local-storage](#save-jwt-to-local-storage)
 * [Part-21](#part-21)
   * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
+* [Part-22](#part-22)
+  * [Endpoint `/api/user` doesn't seem to be working ?](#endpoint-apiuser-doesnt-seem-to-be-working-)
 
 <!-- /TOC -->
 
@@ -692,13 +694,8 @@ class Header extends React.Component {
 
 ```js
 //src/services.js
-export default {
-  Articles,
-  Auth,
-  setToken: _token => {
-    token = _token;
-  }
-};
+const setToken = (token = null) =>
+  (axiosInstance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : "");
 ```
 
 # Part-21
@@ -724,3 +721,31 @@ componentWillMount() {
 
 * What we're saying is that if we're about to get a token from window localStorage we want to call `services.setToken` and pass it that token, so axios has it on all further requests.
 * `this.props.onLoad` is going to call `services.Auth.currentUser` if there is a token, this will fetch the current user profile with nothing more than the JWT, and load that sucker into the store. Just as if the user had signed in! Sweet.
+
+# Part-22
+
+## Endpoint `/api/user` doesn't seem to be working ?
+
+* Let's create an endpoint for it
+
+```js
+//routes/api/users.js
+//User return user info,
+//Protected Route, notice the call to auth.required before the function!!
+router.get("/user", auth.required, function(req, res, next) {
+  User.findById(req.payload.id)
+    .then(function(user) {
+      if (!user) {
+        return res.sendStatus(401);
+      }
+
+      return res.json({ user: user.toAuthJSON() });
+    })
+    .catch(next);
+});
+```
+
+* auth.required should decode the JWT sent in the header of the request, and append the json payload that has user.id, user.username, and exp to the req object.
+* then we can get the user.id with `req.payload.id` and do a fineOne on the Users Model to get a valid user profile, and send it back!
+* it appears to be working, but it's updating the header with currentUser ?? mmmmm. Are we setting current user on APP_LOAD, or just LOGIN? That might be it.
+  `currentUser: action.error ? null : action.payload.user,`
