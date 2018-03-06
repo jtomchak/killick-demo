@@ -28,6 +28,8 @@
 * [Part-19](#part-19)
 * [Part-20](#part-20)
   * [Save JWT to local-storage](#save-jwt-to-local-storage)
+* [Part-21](#part-21)
+  * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
 
 <!-- /TOC -->
 
@@ -698,3 +700,27 @@ export default {
   }
 };
 ```
+
+# Part-21
+
+## Hydrate localstorage JWT
+
+* now that we are setting the JWT to localstorage, we want to retrieve it when the App component is mounted using a life cycle method.
+
+```js
+//src/App.js
+
+componentWillMount() {
+    const token = window.localStorage.getItem("jwt");
+    if (token) {
+      //set token with axios
+      services.setToken(token);
+    }
+    //if there is a token, we want to make an HTTP call for current user
+    //do we have that set up on the server side yet? idk
+    this.props.onLoad(token ? services.Auth.currentUser() : null, token);
+  }
+```
+
+* What we're saying is that if we're about to get a token from window localStorage we want to call `services.setToken` and pass it that token, so axios has it on all further requests.
+* `this.props.onLoad` is going to call `services.Auth.currentUser` if there is a token, this will fetch the current user profile with nothing more than the JWT, and load that sucker into the store. Just as if the user had signed in! Sweet.

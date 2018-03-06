@@ -4,6 +4,7 @@ import { push } from "react-router-redux";
 import { connect } from "react-redux";
 
 import { reduxStore } from "../store";
+import services from "../services";
 import Header from "./Header";
 import Home from "./Home";
 import Login from "./Login";
@@ -29,7 +30,14 @@ class App extends Component {
     }
   }
   componentWillMount() {
-    this.props.onLoad(null, null);
+    const token = window.localStorage.getItem("jwt");
+    if (token) {
+      //set token with axios
+      services.setToken(token);
+    }
+    //if there is a token, we want to make an HTTP call for current user
+    //do we have that set up on the server side yet? idk
+    this.props.onLoad(token ? services.Auth.currentUser() : null, token);
   }
   render() {
     return (
