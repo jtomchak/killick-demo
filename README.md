@@ -885,4 +885,4 @@ if (typeof req.body.user.username !== "undefined") {
 }
 ```
 
-* So now are call to `/api/user` as an HTTP PUT should be working, but the page just sits there? mmmmm, why do you think that is? let's tackle that in the next section
+* So now our call to `/api/user` as an HTTP PUT should be working, but the page just sits there? mmmmm, why do you think that is? let's tackle that in the next section
