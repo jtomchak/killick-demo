@@ -32,6 +32,7 @@
   * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
 * [Part-22](#part-22)
   * [Endpoint `/api/user` doesn't seem to be working ?](#endpoint-apiuser-doesnt-seem-to-be-working-)
+    * [What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?](#what-if-we-manually-remove-the-jwt-from-local-storage-and-refresh-the-page-opps-how-would-we-fix-that-)
 * [Part-23](#part-23)
   * [Register New Users](#register-new-users)
 
@@ -752,7 +753,7 @@ router.get("/user", auth.required, function(req, res, next) {
 * it appears to be working, but it's updating the header with currentUser ?? mmmmm. Are we setting current user on APP_LOAD, or just LOGIN? That might be it.
   `currentUser: action.error ? null : action.payload.user,`
 
-* ###What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?
+### What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?
 
 # Part-23
 
@@ -760,7 +761,7 @@ router.get("/user", auth.required, function(req, res, next) {
 
 * Let's make a Register Component, it's pretty much _mostly_ like login, but with username field too. Easy Peasy, right?
 * thank goodness we have the API ENDPOINT ALREADY!
-* services post auth register
+* services post auth register, hopfully you're starting to see the benefits of the services setup now that we are started to add a couple calls. maybe?
 
 ```js
 //services.js
