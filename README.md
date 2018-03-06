@@ -31,6 +31,7 @@
 * [Part-21](#part-21)
   * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
 * [Part-22](#part-22)
+* [Part-23](#part-23)
 
 <!-- /TOC -->
 
@@ -750,3 +751,21 @@ router.get("/user", auth.required, function(req, res, next) {
   `currentUser: action.error ? null : action.payload.user,`
 
 * ###What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?
+
+# Part-23
+
+* ## Register New Users
+
+* Let's make a Register Component, it's pretty much _mostly_ like login, but with username field too. Easy Peasy, right?
+* thank goodness we have the API ENDPOINT ALREADY!
+* services post auth register
+
+```js
+//services.js
+register: (username, email, password) =>
+  requests.post("/users", { user: { username, email, password } });
+```
+
+* auth reducer to handle 'REGISTER' a lot like login
+  * infact, it's exactly like 'LOGIN', gosh, I wonder if there's a way we can leverage that, and not have to write things out twice?!?!
+* Sweet. Now make a user, **SO AMAZING**

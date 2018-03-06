@@ -8,6 +8,7 @@ import services from "../services";
 import Header from "./Header";
 import Home from "./Home";
 import Login from "./Login";
+import Register from "./Register";
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -46,6 +47,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     );
