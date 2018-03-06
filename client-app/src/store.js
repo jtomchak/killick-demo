@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { routerReducer, routerMiddleware } from "react-router-redux";
+import { createLogger } from "redux-logger";
 import { promiseMiddleware, localStorageMiddleware } from "./middleware";
 
 import createHistory from "history/createBrowserHistory";
@@ -22,7 +23,16 @@ const reducer = combineReducers({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const reduxStore = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware))
-);
+//setting middleware based on env
+const getMiddleware = () => {
+  if (process.env.NODE_ENV === "production") {
+    return compose(applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware));
+  } else {
+    // Enable additional logging in non-production environments.
+    return composeEnhancers(
+      applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware, createLogger())
+    );
+  }
+};
+
+export const reduxStore = createStore(reducer, getMiddleware());

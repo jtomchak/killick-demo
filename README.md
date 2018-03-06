@@ -37,6 +37,8 @@
   * [Register New Users](#register-new-users)
 * [Part-24](#part-24)
   * [User Settings, how do they log out?](#user-settings-how-do-they-log-out)
+* [Part-25](#part-25)
+  * [Redux Logger, another look at what's happening](#redux-logger-another-look-at-whats-happening)
 
 <!-- /TOC -->
 
@@ -799,3 +801,24 @@ else if (action.type === 'LOGOUT') {
 ```
 
 * Rad, now we can log out. **AND** when the currentUser is reset to null, the Header is already set to change!!!!! How cool is that!!!!!
+
+# Part-25
+
+## Redux Logger, another look at what's happening
+
+* `cd client-app && npm install redux-logger`
+* we can set a conditional as to whether we are in dev or production environment
+
+```js
+//store.js
+const getMiddleware = () => {
+  if (process.env.NODE_ENV === "production") {
+    return compose(applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware));
+  } else {
+    // Enable additional logging in non-production environments.
+    return composeEnhancers(
+      applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware, createLogger())
+    );
+  }
+};
+```
