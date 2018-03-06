@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.redirectTo) {
       // this.context.router.replace(nextProps.redirectTo);
       reduxStore.dispatch(push(nextProps.redirectTo));

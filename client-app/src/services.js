@@ -2,6 +2,16 @@ import axios from "axios";
 
 const API_ROOT = "/api";
 
+let token = null;
+const axiosInstance = axios.create({
+  baseURL: "/api",
+  timeout: 1000,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`
+  }
+});
+
 const responseData = res => res.data;
 
 const requests = {
@@ -19,5 +29,8 @@ const Auth = {
 
 export default {
   Articles,
-  Auth
+  Auth,
+  setToken: _token => {
+    token = _token;
+  }
 };

@@ -26,6 +26,8 @@
 * [Part-18](#part-18)
   * [The great redirect](#the-great-redirect)
 * [Part-19](#part-19)
+* [Part-20](#part-20)
+  * [Save JWT to local-storage](#save-jwt-to-local-storage)
 
 <!-- /TOC -->
 
@@ -675,4 +677,24 @@ class Header extends React.Component {
     );
   }
 }
+```
+
+# Part-20
+
+## Save JWT to local-storage
+
+* and we can do it with???? **Middleware**
+* if the action type is "LOGIN" or "REGISTAR" we want to leverage the standard browser method `setItem` on `window.localStorage` like so:
+  `window.localStorage.setItem("jwt", action.payload.user.token);`
+* we also want to save that token to an axios instance for all subsequent requests.
+
+```js
+//src/services.js
+export default {
+  Articles,
+  Auth,
+  setToken: _token => {
+    token = _token;
+  }
+};
 ```
