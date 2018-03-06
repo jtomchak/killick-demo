@@ -43,6 +43,8 @@
   * [User Settings form, users can edit their stuff.](#user-settings-form-users-can-edit-their-stuff)
 * [Part-27](#part-27)
   * [what does services.Auth.save do?](#what-does-servicesauthsave-do)
+* [Part-28](#part-28)
+  * [Client Reducer for 'SETTINGS_SAVED'](#client-reducer-for-settings_saved)
 
 <!-- /TOC -->
 
@@ -886,3 +888,23 @@ if (typeof req.body.user.username !== "undefined") {
 ```
 
 * So now our call to `/api/user` as an HTTP PUT should be working, but the page just sits there? mmmmm, why do you think that is? let's tackle that in the next section
+
+# Part-28
+
+### Client Reducer for 'SETTINGS_SAVED'
+
+* We're gonna want to handle the action 'SETTINGS_SAVED' in two places.
+  1.  a new `settings.js` reducer
+  2.  and `common.js` bc it's getting updated currentUser info.
+
+```js
+//reducers/common.js
+ case "SETTINGS_SAVED":
+      return {
+        ...state,
+        redirectTo: action.error ? null : "/",
+        currentUser: action.error ? null : action.payload.user
+      }
+```
+
+* redirectTo and currentUser should not be surprising to you at this point, right?
