@@ -31,7 +31,9 @@
 * [Part-21](#part-21)
   * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
 * [Part-22](#part-22)
+  * [Endpoint `/api/user` doesn't seem to be working ?](#endpoint-apiuser-doesnt-seem-to-be-working-)
 * [Part-23](#part-23)
+  * [Register New Users](#register-new-users)
 
 <!-- /TOC -->
 
@@ -724,7 +726,7 @@ componentWillMount() {
 
 # Part-22
 
-* ## Endpoint `/api/user` doesn't seem to be working ?
+## Endpoint `/api/user` doesn't seem to be working ?
 
 * Let's create an endpoint for it
 
@@ -754,7 +756,7 @@ router.get("/user", auth.required, function(req, res, next) {
 
 # Part-23
 
-* ## Register New Users
+## Register New Users
 
 * Let's make a Register Component, it's pretty much _mostly_ like login, but with username field too. Easy Peasy, right?
 * thank goodness we have the API ENDPOINT ALREADY!
