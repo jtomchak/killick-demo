@@ -35,6 +35,8 @@
     * [What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?](#what-if-we-manually-remove-the-jwt-from-local-storage-and-refresh-the-page-opps-how-would-we-fix-that-)
 * [Part-23](#part-23)
   * [Register New Users](#register-new-users)
+* [Part-24](#part-24)
+  * [User Settings, how do they log out?](#user-settings-how-do-they-log-out)
 
 <!-- /TOC -->
 
@@ -772,3 +774,28 @@ register: (username, email, password) =>
 * auth reducer to handle 'REGISTER' a lot like login
   * infact, it's exactly like 'LOGIN', gosh, I wonder if there's a way we can leverage that, and not have to write things out twice?!?!
 * Sweet. Now make a user, **SO AMAZING**
+
+# Part-24
+
+## User Settings, how do they log out?
+
+* Creating a component `Settings.js`
+* Add a corresponding route in `App.js` client side, right?
+* We'll need to add a switch case to our `common.js` reducer to handle 'LOGOUT'
+
+```js
+case 'LOGOUT':
+      return { ...state, redirectTo: '/', token: null, currentUser: null };
+```
+
+* We also need to remove the JWT from localstorage, we can do this using our custom localStorageMiddleware!
+
+```js
+//src/middleware.js
+else if (action.type === 'LOGOUT') {
+    window.localStorage.setItem('jwt', '');
+    agent.setToken(null);
+  }
+```
+
+* Rad, now we can log out. **AND** when the currentUser is reset to null, the Header is already set to change!!!!! How cool is that!!!!!

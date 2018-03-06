@@ -26,6 +26,9 @@ const localStorageMiddleware = store => next => action => {
       //set axios header auth instance
       services.setToken(action.payload.user.token);
     }
+  } else if (action.type === "LOGOUT") {
+    window.localStorage.setItem("jwt", "");
+    services.setToken(); //calling setToken without an argument will have it use the default `null` we set up.
   }
   next(action);
 };
