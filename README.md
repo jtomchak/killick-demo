@@ -39,6 +39,8 @@
   * [User Settings, how do they log out?](#user-settings-how-do-they-log-out)
 * [Part-25](#part-25)
   * [Redux Logger, another look at what's happening](#redux-logger-another-look-at-whats-happening)
+* [Part-26](#part-26)
+  * [User Settings form, users can edit their stuff.](#user-settings-form-users-can-edit-their-stuff)
 
 <!-- /TOC -->
 
@@ -822,3 +824,31 @@ const getMiddleware = () => {
   }
 };
 ```
+
+# Part-26
+
+## User Settings form, users can edit their stuff.
+
+* Refactoring Settings into a feature component with `index.js and SettingsForm.js`
+
+```
+├── Home
+├── Settings
+│   └── SettingsForm.js
+│   └── index.js
+├── App.js
+```
+
+```js
+//src/Settings/index.js
+
+<SettingsForm currentUser={this.props.currentUser} onSubmitForm={this.props.onSubmitForm} />
+```
+
+* Then in settings form we are gonna need a pile of lifecycle methods
+
+  1.  `updateState` with changes to form fields
+  2.  `submitForm` that is clean the state object, and call `this.props.onSubmitForm`
+  3.  `componentDidMount` to take the currentUser via props and merge it with state
+
+* At this point if we refresh the profile page, we don't get any information in it. **d'oh** So how would we fix this? What lifecycle method would we use?
