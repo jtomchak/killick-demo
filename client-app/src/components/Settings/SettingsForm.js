@@ -19,6 +19,19 @@ class SettingsForm extends Component {
     }
   }
 
+  //we also need the form to update after possible rehydration, or changes to currentUser
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser) {
+      this.setState({
+        ...this.state,
+        image: nextProps.currentUser.image || "",
+        username: nextProps.currentUser.username,
+        bio: nextProps.currentUser.bio,
+        email: nextProps.currentUser.email
+      });
+    }
+  }
+
   submitForm = event => {
     event.preventDefault();
 

@@ -41,6 +41,8 @@
   * [Redux Logger, another look at what's happening](#redux-logger-another-look-at-whats-happening)
 * [Part-26](#part-26)
   * [User Settings form, users can edit their stuff.](#user-settings-form-users-can-edit-their-stuff)
+* [Part-27](#part-27)
+  * [what does services.Auth.save do?](#what-does-servicesauthsave-do)
 
 <!-- /TOC -->
 
@@ -852,3 +854,35 @@ const getMiddleware = () => {
   3.  `componentDidMount` to take the currentUser via props and merge it with state
 
 * At this point if we refresh the profile page, we don't get any information in it. **d'oh** So how would we fix this? What lifecycle method would we use?
+
+# Part-27
+
+### what does services.Auth.save do?
+
+* it's a HTTP PUT method that will update our user model on the server
+
+> The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
+
+> The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the same effect (that is no side effect), where successive identical POST may have additional effects, like passing an order several times.
+
+* So let's make that service, **AND** handle it on the backend!
+
+```js
+//services.js
+[...]
+ save: user => requests.put("/user", { user })
+```
+
+* And what would the route handling look like?
+* It's going to be protected, so it's got auth.required on it
+* We only want to set the properties that were `PUT` up to the server
+
+```js
+//routes/api/users.js
+// only update fields that were actually passed...
+if (typeof req.body.user.username !== "undefined") {
+  user.username = req.body.user.username;
+}
+```
+
+* So now are call to `/api/user` as an HTTP PUT should be working, but the page just sits there? mmmmm, why do you think that is? let's tackle that in the next section

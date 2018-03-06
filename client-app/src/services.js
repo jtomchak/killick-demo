@@ -15,7 +15,8 @@ const responseData = res => res.data;
 
 const requests = {
   get: url => axiosInstance.get(`${url}`).then(responseData),
-  post: (url, body) => axiosInstance.post(`${url}`, body).then(responseData)
+  post: (url, body) => axiosInstance.post(`${url}`, body).then(responseData),
+  put: (url, body) => axiosInstance.put(`${url}`, body).then(responseData)
 };
 
 const Articles = {
@@ -26,7 +27,8 @@ const Auth = {
   currentUser: () => requests.get("/user"),
   login: (email, password) => requests.post("/users/login", { user: { email, password } }),
   register: (username, email, password) =>
-    requests.post("/users", { user: { username, email, password } })
+    requests.post("/users", { user: { username, email, password } }),
+  save: user => requests.put("/user", { user })
 };
 
 export default {
