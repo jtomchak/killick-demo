@@ -45,6 +45,8 @@
   * [what does services.Auth.save do?](#what-does-servicesauthsave-do)
 * [Part-28](#part-28)
   * [Client Reducer for 'SETTINGS_SAVED'](#client-reducer-for-settings_saved)
+* [Part-29](#part-29)
+  * [Finally Articles!](#finally-articles)
 
 <!-- /TOC -->
 
@@ -908,3 +910,18 @@ if (typeof req.body.user.username !== "undefined") {
 ```
 
 * redirectTo and currentUser should not be surprising to you at this point, right?
+
+# Part-29
+
+### Finally Articles!
+
+* We'll start with the 'read more' on the article preview
+* What we have is a link to `/articles/${article.slug}`
+* Let's handle this route, it's gonna be dynamicly, remember the ':'
+
+```js
+//src/components/App.js
+<Route path="/article/:id" component={Article} />
+```
+
+* Thanks gonna error out, so we'll need the Article Component too. lol
