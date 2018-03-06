@@ -31,7 +31,6 @@
 * [Part-21](#part-21)
   * [Hydrate localstorage JWT](#hydrate-localstorage-jwt)
 * [Part-22](#part-22)
-  * [Endpoint `/api/user` doesn't seem to be working ?](#endpoint-apiuser-doesnt-seem-to-be-working-)
 
 <!-- /TOC -->
 
@@ -724,7 +723,7 @@ componentWillMount() {
 
 # Part-22
 
-## Endpoint `/api/user` doesn't seem to be working ?
+* ## Endpoint `/api/user` doesn't seem to be working ?
 
 * Let's create an endpoint for it
 
@@ -749,3 +748,5 @@ router.get("/user", auth.required, function(req, res, next) {
 * then we can get the user.id with `req.payload.id` and do a fineOne on the Users Model to get a valid user profile, and send it back!
 * it appears to be working, but it's updating the header with currentUser ?? mmmmm. Are we setting current user on APP_LOAD, or just LOGIN? That might be it.
   `currentUser: action.error ? null : action.payload.user,`
+
+* ###What if we manually remove the JWT from local storage and refresh the page. OPPS! How would we fix that ?
