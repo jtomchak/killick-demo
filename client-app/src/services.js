@@ -7,10 +7,12 @@ const axiosInstance = axios.create({
   baseURL: "/api",
   timeout: 1000,
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    "Content-Type": "application/json"
   }
 });
+
+const setToken = (token = null) =>
+  (axiosInstance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : "");
 
 const responseData = res => res.data;
 
@@ -30,7 +32,5 @@ const Auth = {
 export default {
   Articles,
   Auth,
-  setToken: _token => {
-    token = _token;
-  }
+  setToken
 };

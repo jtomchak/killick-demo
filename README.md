@@ -690,11 +690,6 @@ class Header extends React.Component {
 
 ```js
 //src/services.js
-export default {
-  Articles,
-  Auth,
-  setToken: _token => {
-    token = _token;
-  }
-};
+const setToken = (token = null) =>
+  (axiosInstance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : "");
 ```
