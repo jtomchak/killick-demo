@@ -27,13 +27,6 @@ export default (state = defaultState, action) => {
         redirectTo: action.error ? null : "/"
       };
     }
-    case "SETTINGS_SAVED": {
-      return {
-        ...state,
-        currentUser: action.error ? null : action.payload.user,
-        redirectTo: action.error ? null : "/"
-      };
-    }
     default:
       return state;
   }
