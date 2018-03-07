@@ -47,6 +47,7 @@
   * [Client Reducer for 'SETTINGS_SAVED'](#client-reducer-for-settings_saved)
 * [Part-29](#part-29)
   * [Finally Articles!](#finally-articles)
+  * [Article Services](#article-services)
 
 <!-- /TOC -->
 
@@ -926,3 +927,34 @@ if (typeof req.body.user.username !== "undefined") {
 ```
 
 * Thanks gonna error out, so we'll need the Article Component too. lol
+  * So we create a Folder `Article` with `index.js`
+  * Set up this componen to fetch the article by slugId, we're also gonna need it to get all the comments for this Article, **OH BOY**
+  * That's where Promise.all comes into [play](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
+  * And what are we doing with the marked library ? well, i like markup, so we want to be able to write in markup, and have it rendered to HTML.
+  * Use of [dangerouslySetInnerHTML](https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml).
+
+### Article Services
+
+* we want to add get with slug for articles **AND** Comments for articles
+
+```js
+//services.js
+//articles...
+get: slug => requests.get(`/articles/${slug}`)`
+
+const Comments = {
+  forArticle: slug => requests.get(`/articles/${slug}/comments`)
+};`
+```
+
+* We also need a reducer for Articles, **ADD** it to the store too!!!!!!
+
+```js
+//reducers/articles.js
+
+export default (state = {}, action) => {
+  switch (action.type) {
+    case "ARTICLE_PAGE_LOADED":
+```
+
+* So at this point our page should render _blank_ and we're making 2 network request that fail, because we haven't created those endpoints yet. next step!!!!!

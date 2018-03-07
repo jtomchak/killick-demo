@@ -9,6 +9,7 @@ import auth from "./reducers/auth";
 import common from "./reducers/common";
 import home from "./reducers/home";
 import settings from "./reducers/settings";
+import articles from "./reducers/articles";
 //init browser history API
 export const history = createHistory();
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   common,
   home,
   settings,
+  articles,
   router: routerReducer
 });
 

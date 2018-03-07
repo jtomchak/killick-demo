@@ -15,12 +15,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Article extends Component {
-  componentWillMount() {
+  componentDidMount() {
     /*
     we'll need to get article by slug from the url
     and the comments for this. 2 promises. ummmmm
     */
-    const articleId = this.props.params.id;
+    const articleId = this.props.match.params.id;
     this.props.onLoad(
       Promise.all([services.Articles.get(articleId), services.Comments.forArticle(articleId)])
     );
