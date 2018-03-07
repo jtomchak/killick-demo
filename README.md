@@ -886,3 +886,5 @@ if (typeof req.body.user.username !== "undefined") {
 ```
 
 * So now are call to `/api/user` as an HTTP PUT should be working, but the page just sits there? mmmmm, why do you think that is? let's tackle that in the next section
+
+* what about the Header component? It's not updating either, until it's refreshed. Can we fix that with a lifecycle method?
