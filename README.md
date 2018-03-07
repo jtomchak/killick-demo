@@ -1,5 +1,6 @@
 <!-- TOC -->
 
+* [[Part 2](README-PART2.md)](#part-2readme-part2md)
 * [Redux codebase containing real world examples (CRUD, auth, advanced patterns, etc)](#redux-codebase-containing-real-world-examples-crud-auth-advanced-patterns-etc)
   * [Getting started](#getting-started)
   * [Setup for Front & Backend](#setup-for-front--backend)
@@ -28,6 +29,8 @@
 * [Part-19](#part-19)
 
 <!-- /TOC -->
+
+# [Part 2](README-PART2.md)
 
 > Example React + Redux codebase that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
