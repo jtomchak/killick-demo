@@ -346,7 +346,7 @@ UserSchema.methods.toProfileJSONFor = function() {
 
 * Now we can test the crap out of this endpoint using postman.
 
-![imgur](https://imgur.com/a/ZQvX6)
+![alt postman](https://i.imgur.com/l5fVDJr.png)
 
 * That's way more helpful!!!!!
 * Now we aren't making a second Promise Query......yet, but it's good to talk about it now!
