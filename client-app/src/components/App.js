@@ -10,6 +10,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 import Settings from "./Settings";
+import Article from "./Article";
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -50,6 +51,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/settings" component={Settings} />
+          <Route path="/article/:id" component={Article} />
         </Switch>
       </div>
     );

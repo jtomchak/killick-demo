@@ -915,6 +915,7 @@ if (typeof req.body.user.username !== "undefined") {
 
 ### Finally Articles!
 
+* `npm install marked`
 * We'll start with the 'read more' on the article preview
 * What we have is a link to `/articles/${article.slug}`
 * Let's handle this route, it's gonna be dynamicly, remember the ':'
