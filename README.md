@@ -48,6 +48,8 @@
 * [Part-29](#part-29)
   * [Finally Articles!](#finally-articles)
   * [Article Services](#article-services)
+* [Part-30](#part-30)
+  * [Backend Endpoint for Articles by slug](#backend-endpoint-for-articles-by-slug)
 
 <!-- /TOC -->
 
@@ -958,3 +960,9 @@ export default (state = {}, action) => {
 ```
 
 * So at this point our page should render _blank_ and we're making 2 network request that fail, because we haven't created those endpoints yet. next step!!!!!
+
+# Part-30
+
+### Backend Endpoint for Articles by slug
+
+* we're gonna need to handle `/api/articles/:articleId`
