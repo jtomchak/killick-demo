@@ -363,4 +363,4 @@ router.get("/:article", auth.optional, function(req, res, next) {
 });
 ```
 
-* alright, **WOW** so articles by slug is working, we've beefed up or Article Model, let's tackle the Comments next so our Article will finally render!
+* alright, **WOW** so articles by slug is working, we've beefed up or Article Model, we can now **FINALLY** click on an article and see the content. oh man, what a great job!!!
