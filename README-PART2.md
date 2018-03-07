@@ -265,7 +265,7 @@ if (typeof req.body.user.username !== "undefined") {
 
 ### Article Services
 
-* we want to add get with slug for articles **AND** Comments for articles
+* we want to add get with slug for articles
 
 ```js
 //services.js
