@@ -21,9 +21,7 @@ class Article extends Component {
     and the comments for this. 2 promises. ummmmm
     */
     const articleId = this.props.match.params.id;
-    this.props.onLoad(
-      Promise.all([services.Articles.get(articleId), services.Comments.forArticle(articleId)])
-    );
+    this.props.onLoad(Promise.all([services.Articles.get(articleId)]));
   }
 
   /*
