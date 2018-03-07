@@ -346,7 +346,7 @@ UserSchema.methods.toProfileJSONFor = function() {
 
 * Now we can test the crap out of this endpoint using postman.
 
-  <blockquote class="imgur-embed-pub" lang="en" data-id="a/ZQvX6"><a href="//imgur.com/ZQvX6"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![imgur](https://imgur.com/a/ZQvX6)
 
 * That's way more helpful!!!!!
 * Now we aren't making a second Promise Query......yet, but it's good to talk about it now!
