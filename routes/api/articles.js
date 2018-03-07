@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Article = mongoose.model("Article");
+const User = mongoose.model("User");
+const auth = require("../auth");
 
 // Preload article objects on routes with ':article'
 router.param("article", function(req, res, next, slug) {
@@ -10,7 +12,6 @@ router.param("article", function(req, res, next, slug) {
       if (!article) {
         return res.sendStatus(404);
       }
-
       req.article = article;
 
       return next();
@@ -34,16 +35,11 @@ router.get("/", function(req, res, next) {
     .catch(next);
 });
 
-// return a article by slug-id
+// return a article by slug-id, we also want to get user who is actually signed in.
 router.get("/:article", auth.optional, function(req, res, next) {
-  Promise.all([
-    req.payload ? User.findById(req.payload.id) : null,
-    req.article.populate("author").execPopulate()
-  ])
+  Promise.all([req.article.populate("author").execPopulate()])
     .then(function(results) {
-      var user = results[0];
-
-      return res.json({ article: req.article.toJSONFor(user) });
+      return res.json({ article: req.article.toJSONFor() });
     })
     .catch(next);
 });

@@ -965,4 +965,72 @@ export default (state = {}, action) => {
 
 ### Backend Endpoint for Articles by slug
 
-* we're gonna need to handle `/api/articles/:articleId`
+* `npm install slug` for the server
+* We are gonna need to beef up our User Model, and our Articles Model
+
+```js
+//models/Articles
+const ArticleSchema = new mongoose.Schema(
+  {
+    slug: { type: String, lowercase: true, unique: true },
+    title: String,
+    description: String,
+    body: String,
+    favoritesCount: { type: Number, default: 0 },
+    tagList: [{ type: String }],
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  },
+  { timestamps: true }
+);
+
+//models/Users
+//just a new method for our User's Model
+UserSchema.methods.toProfileJSONFor = function() {
+  return {
+    username: this.username,
+    bio: this.bio,
+    image: this.image || "https://static.productionready.io/images/smiley-cyrus.jpg"
+  };
+};
+```
+
+* we're gonna need to handle `/api/articles/:articleId` **AND** `/api/articles/:articleId/comments`
+
+* this can be tough, is there a better way to debug? sure
+  * VSCODE Debug, attache to process and we can set breakpoints. that's rad!
+
+```js
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach by Process ID",
+      "processId": "${command:PickProcess}"
+    }
+  ]
+}
+```
+
+* Now we can test the crap out of this endpoint using postman.
+
+  <blockquote class="imgur-embed-pub" lang="en" data-id="a/ZQvX6"><a href="//imgur.com/ZQvX6"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+* That's way more helpful!!!!!
+* Now we aren't making a second Promise Query......yet, but it's good to talk about it now!
+
+```js
+//routes/api/articles.js
+// return a article by slug-id, we also want to get user who is actually signed in.
+router.get("/:article", auth.optional, function(req, res, next) {
+  Promise.all([req.article.populate("author").execPopulate()])
+    .then(function(results) {
+      return res.json({ article: req.article.toJSONFor() });
+    })
+    .catch(next);
+});
+```
