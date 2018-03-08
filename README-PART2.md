@@ -31,6 +31,8 @@
 * [Part-32](#part-32)
 * [Part-33](#part-33)
   * [Posting Comments](#posting-comments)
+* [Part-34](#part-34)
+  * [Comments Input Component, Service, and Reducer](#comments-input-component-service-and-reducer)
 
 <!-- /TOC -->
 
@@ -458,3 +460,34 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
 ```
 
 ![Postman](https://i.imgur.com/CqiYfna.png)
+
+# Part-34
+
+## Comments Input Component, Service, and Reducer
+
+* We have an endpoint, lets make that input!!!!!
+* We need a service to do the posting of the comment for us
+  `create: (slug, body) => requests.post(`articles/${slug}/comments`, { comment: body })`
+* Cool, now we can make a component in our Articles feature `CommentInput.js` that will dispatch our comment POST promise
+
+```js
+//src/components/Article/CommentsInput.js
+const mapDispatchToProps = dispatch => ({
+  onSubmit: payload => dispatch({ type: "Add_COMMENT", payload })
+});
+```
+
+* Handling the `ADD_COMMENT` in our article reducer would be the next step
+  * for comments we want to set it to state.commnets **OR** empty array if there isn't any, **AND** append or `concat` our new comment via the action.payload to the exisitng comments.
+
+```js
+//src/reducers/article.js
+case "ADD_ARTICLE":
+      return {
+        ...state,
+        commentErrors: action.error ? action.payload.errors : null,
+        comments: action.error ? null : (state.comments || []).concat([action.payload.comment])
+      };
+```
+
+* sweet it's posting, but sadly it's not updating until we refresh the page, or jump back home and reload that component, how would we fix this?? _what lifecylce method would we use, and where_

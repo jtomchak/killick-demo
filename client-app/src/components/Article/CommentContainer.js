@@ -1,6 +1,7 @@
-import CommentList from "./CommentList";
-import { Link } from "react-router-dom";
 import React from "react";
+import { Link } from "react-router-dom";
+import CommentList from "./CommentList";
+import CommentInput from "./CommentInput";
 
 const CommentContainer = props => {
   if (props.currentUser) {
@@ -9,7 +10,7 @@ const CommentContainer = props => {
         <div>
           <list-errors errors={props.errors} />
         </div>
-
+        <CommentInput slug={props.slug} currentUser={props.currentUser} />
         <CommentList comments={props.comments} slug={props.slug} currentUser={props.currentUser} />
       </div>
     );
