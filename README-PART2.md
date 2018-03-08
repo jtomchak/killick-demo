@@ -521,6 +521,18 @@ router.post("/", auth.required, function(req, res, next) {
 }
 ```
 
+* We also need to add a Mongoose Schema `Pre` method to insure we have an article slug
+
+```js
+ArticleSchema.pre("validate", function(next) {
+  if (!this.slug) {
+    this.slugify();
+  }
+
+  next();
+});
+```
+
 # Part-36
 
 ### New Editor Component
