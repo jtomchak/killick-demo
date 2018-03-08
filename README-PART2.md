@@ -395,4 +395,7 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
 
 * What in the world is going on here [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
   `Promise.resolve(req.payload ? User.findById(req.payload.id) : null)`
+
   * if there is a payload on the request object, remember this happens is the HTTP request has a valid bear token on it, then we're going to go ahead with User Model Query by Id, otherwise we resolve null, and continue with a call `.then()`
+
+* Now with the Comments coming back let's create a CommentContainer, CommentList, and Comment
