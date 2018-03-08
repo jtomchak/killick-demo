@@ -28,6 +28,7 @@ if (isProduction) {
 //import models as soon as we are connected!!!!!!
 require("./models/User");
 require("./models/Article");
+require("./models/Comments");
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

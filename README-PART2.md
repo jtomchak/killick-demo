@@ -26,6 +26,8 @@
   * [Article Services](#article-services)
 * [Part-30](#part-30)
   * [Backend Endpoint for Articles by slug](#backend-endpoint-for-articles-by-slug)
+* [Part-31](#part-31)
+  * [Comments, are there any ?](#comments-are-there-any-)
 
 <!-- /TOC -->
 
@@ -364,3 +366,33 @@ router.get("/:article", auth.optional, function(req, res, next) {
 ```
 
 * alright, **WOW** so articles by slug is working, we've beefed up or Article Model, we can now **FINALLY** click on an article and see the content. oh man, what a great job!!!
+
+# Part-31
+
+## Comments, are there any ?
+
+* We'll need that endpoint for the service we set up in step 30. `/articles/${slug}/comments`
+* We need a Comments Schema before anything else
+
+```js
+//models/Comments
+const CommentSchema = new mongoose.Schema(
+  {
+    body: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    article: { type: mongoose.Schema.Types.ObjectId, ref: "Article" }
+  },
+  { timestamps: true }
+);
+```
+
+* We'll to this in our `/routes/api/articles.js` to handle the GET request
+
+```js
+//routes/api/articles.js
+router.get("/:article/comments", auth.optional, function(req, res, next) {
+```
+
+* What in the world is going on here [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
+  `Promise.resolve(req.payload ? User.findById(req.payload.id) : null)`
+  * if there is a payload on the request object, remember this happens is the HTTP request has a valid bear token on it, then we're going to go ahead with User Model Query by Id, otherwise we resolve null, and continue with a call `.then()`
