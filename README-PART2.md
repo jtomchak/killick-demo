@@ -33,6 +33,8 @@
   * [Posting Comments](#posting-comments)
 * [Part-34](#part-34)
   * [Comments Input Component, Service, and Reducer](#comments-input-component-service-and-reducer)
+* [Part-35](#part-35)
+  * [Post New Article Endpoint](#post-new-article-endpoint)
 
 <!-- /TOC -->
 
@@ -491,3 +493,28 @@ case "ADD_ARTICLE":
 ```
 
 * sweet it's posting, but sadly it's not updating until we refresh the page, or jump back home and reload that component, how would we fix this?? _can you find the error_?
+
+# Part-35
+
+### Post New Article Endpoint
+
+* Finally posting a new article. http POST method to `/api/articles`
+* Our article route will start something like this:
+
+```js
+router.post("/", auth.required, function(req, res, next) {
+  User.findById(req.payload.id)
+```
+
+* Here's a sample payload to use via postman
+
+```json
+{
+  "article": {
+    "title": "New Town",
+    "description": "Finally a new article",
+    "body": "# Finally\n\n* you've done it\n* you've made it, sweet\n* but only via postman",
+    "tagList": ["made it", "finally"]
+  }
+}
+```

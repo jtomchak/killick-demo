@@ -73,6 +73,25 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
     .catch(next);
 });
 
+// create a new Article auth required
+router.post("/", auth.required, function(req, res, next) {
+  User.findById(req.payload.id)
+    .then(function(user) {
+      if (!user) {
+        return res.sendStatus(401);
+      }
+
+      var article = new Article(req.body.article);
+
+      article.author = user;
+
+      return article.save().then(function() {
+        return res.json({ article: article.toJSONFor() });
+      });
+    })
+    .catch(next);
+});
+
 // create a new comment
 router.post("/:article/comments", auth.required, function(req, res, next) {
   User.findById(req.payload.id)
