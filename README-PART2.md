@@ -35,6 +35,8 @@
   * [Comments Input Component, Service, and Reducer](#comments-input-component-service-and-reducer)
 * [Part-35](#part-35)
   * [Post New Article Endpoint](#post-new-article-endpoint)
+* [Part-36](#part-36)
+  * [New Editor Component](#new-editor-component)
 
 <!-- /TOC -->
 
@@ -518,3 +520,10 @@ router.post("/", auth.required, function(req, res, next) {
   }
 }
 ```
+
+# Part-36
+
+### New Editor Component
+
+* Editor Component, Route, Article POST
+*

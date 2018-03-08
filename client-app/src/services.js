@@ -21,7 +21,8 @@ const requests = {
 
 const Articles = {
   all: page => requests.get(`/articles?limit=10`),
-  get: slug => requests.get(`/articles/${slug}`)
+  get: slug => requests.get(`/articles/${slug}`),
+  create: article => requests.post("/articles", { article })
 };
 
 const Comments = {

@@ -11,6 +11,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Settings from "./Settings";
 import Article from "./Article";
+import Editor from "./Editor";
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -52,6 +53,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/settings" component={Settings} />
           <Route path="/article/:id" component={Article} />
+          <Route path="/editor" component={Editor} />
         </Switch>
       </div>
     );
