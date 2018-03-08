@@ -490,4 +490,4 @@ case "ADD_ARTICLE":
       };
 ```
 
-* sweet it's posting, but sadly it's not updating until we refresh the page, or jump back home and reload that component, how would we fix this?? _what lifecylce method would we use, and where_
+* sweet it's posting, but sadly it's not updating until we refresh the page, or jump back home and reload that component, how would we fix this?? \_can you find the error\_\_?
