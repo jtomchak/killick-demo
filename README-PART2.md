@@ -537,5 +537,23 @@ ArticleSchema.pre("validate", function(next) {
 
 ### New Editor Component
 
-* Editor Component, Route, Article POST
-*
+* Editor Component, Route, Article POST, reducer
+* We have the endpoint working, we want to make the `Editor.js` component, and dispatch the action
+
+```js
+const mapStateToDispatch = dispatch => ({
+  onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED", payload })
+});
+```
+
+* The service to create the Article
+  `create: article => requests.post("/articles", { article })`
+
+* Editor reducer also needed, and we'll want to also handle `"ARTICLE_SUBMITTED"` action in our commone reducer to redirectTo.
+
+```js
+///src/reducers/common.js
+case "ARTICLE_SUBMITTED":
+      const redirectUrl = `article/${action.payload.article.slug}`;
+      return { ...state, redirectTo: redirectUrl };
+```
