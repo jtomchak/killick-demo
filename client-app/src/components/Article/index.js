@@ -5,6 +5,8 @@ import marked from "marked";
 
 import services from "../../services";
 
+import CommentContainer from "./CommentContainer";
+
 const mapStateToProps = state => ({
   ...state.article,
   currentUser: state.common.currentUser
@@ -35,7 +37,7 @@ marked is a library that compiles markdown into HTML - in order to get react to 
       return null;
     }
     const markup = { __html: marked(article.body) };
-    const canModify = this.props.currentUser.username === article.author.username;
+    // const canModify = this.props.currentUser.username === article.author.username;
     return (
       <div className="article-page">
         <div className="banner">
@@ -64,9 +66,15 @@ marked is a library that compiles markdown into HTML - in order to get react to 
           <hr />
 
           <div className="article-actions" />
-
-          <div className="row" />
         </div>
+
+        <div className="row" />
+        <CommentContainer
+          comments={this.props.comments || []}
+          errors={this.props.commentErrors}
+          slug={this.props.match.params.id}
+          currentUser={this.props.currentUser}
+        />
       </div>
     );
   }

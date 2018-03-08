@@ -28,6 +28,7 @@
   * [Backend Endpoint for Articles by slug](#backend-endpoint-for-articles-by-slug)
 * [Part-31](#part-31)
   * [Comments, are there any ?](#comments-are-there-any-)
+* [Part-32](#part-32)
 
 <!-- /TOC -->
 
@@ -399,3 +400,39 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
   * if there is a payload on the request object, remember this happens is the HTTP request has a valid bear token on it, then we're going to go ahead with User Model Query by Id, otherwise we resolve null, and continue with a call `.then()`
 
 * Now with the Comments coming back let's create a CommentContainer, CommentList, and Comment
+
+# Part-32
+
+* With the Comments coming back, we need to create a CommentContainer and pass it the comments, any errors, the slug, and the currentUser. We should have all this from wiring up the store to article/index.js
+
+```js
+//components/article/index.js
+<CommentContainer
+  comments={this.props.comments || []}
+  errors={this.props.commentErrors}
+  slug={this.props.match.params.id}
+  currentUser={this.props.currentUser}
+/>
+```
+
+* The Comment Container will render a signin/signup link if isn't a current user, later we'll add comment input box if their is a current user.
+* For the CommentList is just a component that will map over our list of comments and render each comment element as a Comment React Component.
+
+```js
+//components/article/CommentList.js
+{
+  props.comments.map(comment => {
+    return (
+      <Comment
+        comment={comment}
+        currentUser={props.currentUser}
+        slug={props.slug}
+        key={comment.id}
+      />
+    );
+  });
+}
+```
+
+* Then each Comment component render makes these really cool block
+  ![Imgur](https://i.imgur.com/djLlTvx.png)
