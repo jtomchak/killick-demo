@@ -3,7 +3,7 @@ import services from "../../services";
 import { connect } from "react-redux";
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: payload => dispatch({ type: "Add_COMMENT", payload })
+  onSubmit: payload => dispatch({ type: "ADD_COMMENT", payload })
 });
 
 class CommentInput extends Component {

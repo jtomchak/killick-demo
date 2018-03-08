@@ -28,6 +28,12 @@ class Article extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.comments !== this.props.comments) {
+      console.log(nextProps);
+    }
+  }
+
   /*
 marked is a library that compiles markdown into HTML - in order to get react to render raw HTML, we need to use this dangerouslySetInnerHTML property, because React sanitizes HTML by default.
   */
