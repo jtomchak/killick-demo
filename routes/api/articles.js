@@ -73,7 +73,7 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
     .catch(next);
 });
 
-// create a new Article auth required
+// create a new Article,  auth required
 router.post("/", auth.required, function(req, res, next) {
   User.findById(req.payload.id)
     .then(function(user) {
