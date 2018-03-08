@@ -29,6 +29,8 @@
 * [Part-31](#part-31)
   * [Comments, are there any ?](#comments-are-there-any-)
 * [Part-32](#part-32)
+* [Part-33](#part-33)
+  * [Posting Comments](#posting-comments)
 
 <!-- /TOC -->
 
@@ -436,3 +438,23 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
 
 * Then each Comment component render makes these really cool block
   ![Imgur](https://i.imgur.com/djLlTvx.png)
+
+# Part-33
+
+### Posting Comments
+
+* We need a http POST method to add comments to an article `/api/article/:article/comments`
+* Auth is definetly required for this endpoint, **NOT OPTIONAL**
+  * if there is no user we send back a 401
+* `router.post("/:article/comments", auth.required, function(req, res, next) {`
+* With the endpoint filled out, we should be able to hit it with Postman using the following payload. We don't need the article or user info, that is pulled from the url slug and JWT decode respectively!!!
+
+```json
+{
+  "comment": {
+    "body": "This is freakin' awesome!!!!"
+  }
+}
+```
+
+![Postman](https://i.imgur.com/CqiYfna.png)

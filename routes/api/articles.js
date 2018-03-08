@@ -2,6 +2,7 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const Article = mongoose.model("Article");
 const User = mongoose.model("User");
+const Comment = mongoose.model("Comment");
 const auth = require("../auth");
 
 // Preload article objects on routes with ':article'
@@ -70,6 +71,38 @@ router.get("/:article/comments", auth.optional, function(req, res, next) {
         });
     })
     .catch(next);
+});
+
+// create a new comment
+router.post("/:article/comments", auth.required, function(req, res, next) {
+  User.findById(req.payload.id)
+    .then(function(user) {
+      if (!user) {
+        return res.sendStatus(401);
+      }
+
+      var comment = new Comment(req.body.comment);
+      comment.article = req.article;
+      comment.author = user;
+      /*
+      Save comment, on success, we want to add the newly created 
+      comment Object_id to the comments property
+      of that specific article, that is an array, so we use push
+      */
+      return comment.save().then(function() {
+        req.article.comments.push(comment);
+
+        /*
+        Once that comment Object_id is added to the article 
+        we need to save that.
+
+        */
+        return req.article.save().then(function(article) {
+          res.json({ comment: comment.toJSONFor() });
+        });
+      });
+    })
+    .catch(next); //--> if any of our saves/querys fail it triggers the catch
 });
 
 module.exports = router;
