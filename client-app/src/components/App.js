@@ -53,6 +53,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/settings" component={Settings} />
           <Route path="/article/:id" component={Article} />
+          <Route path="/editor/:slug" component={Editor} />
           <Route path="/editor" component={Editor} />
         </Switch>
       </div>

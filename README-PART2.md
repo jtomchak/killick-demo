@@ -39,6 +39,8 @@
   * [New Editor Component](#new-editor-component)
 * [Part-37](#part-37)
   * [GOAL By the end of this you should be able to go to one of your articles, select 'edit' and have that information populated on the edit post form, the submit should also update the article](#goal-by-the-end-of-this-you-should-be-able-to-go-to-one-of-your-articles-select-edit-and-have-that-information-populated-on-the-edit-post-form-the-submit-should-also-update-the-article)
+* [Part-38](#part-38)
+  * [The answers you've been seeking.](#the-answers-youve-been-seeking)
 
 <!-- /TOC -->
 
@@ -569,3 +571,7 @@ case "ARTICLE_SUBMITTED":
 * Now our Editor Component needs to be able to populate if it's editing an article, rather than a new article
 * We've added componentWillRecieveProps to repopulate or remove current Editor state
 * Look closely at the onSubmit method here. We need to call 'create' or 'update' based on if it's a new article or not. We know if it is from this.props.pramas.slug
+
+# Part-38
+
+### The answers you've been seeking.

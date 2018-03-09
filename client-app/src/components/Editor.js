@@ -8,7 +8,9 @@ const mapStateToProps = state => ({
 });
 
 const mapStateToDispatch = dispatch => ({
-  onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED", payload })
+  onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED", payload }),
+  onLoad: payload => dispatch({ type: "EDITOR_PAGE_LOADED", payload }),
+  onUnload: payload => dispatch({ type: "EDITOR_PAGE_UNLOADED" })
 });
 
 class Editor extends Component {
@@ -16,9 +18,36 @@ class Editor extends Component {
     title: "",
     description: "",
     body: "",
-    tagList: [],
-    tag: ""
+    tagList: []
   };
+
+  //we want to check for slug and fetch article if there is one
+  componentWillMount() {
+    const slug = this.props.match.params.slug;
+    if (slug) {
+      return this.props.onLoad(services.Articles.get(slug));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.slug !== nextProps.match.params.slug) {
+      if (nextProps.match.params.slug) {
+        this.props.onUnload();
+        return this.props.onLoad(services.Articles.get(this.props.match.params.slug));
+      }
+      this.props.onLoad(null);
+    }
+    console.log(nextProps.tagList);
+    this.setState({
+      ...this.state,
+      tagList: nextProps.tagList || [],
+      ...nextProps
+    });
+  }
 
   //handle input change for all form fields via the name prop
   handleInputChange = event => {
@@ -32,14 +61,19 @@ class Editor extends Component {
   handleTagChange = event => {
     if (event.which === 13 || event.keyCode === 13) {
       this.setState({
-        tagList: [...this.state.tagList, event.target.value],
-        tag: ""
+        tagList: [...this.state.tagList, event.target.value]
       });
     } else {
       this.setState({ tag: event.target.value });
     }
   };
 
+  /* 
+When submitting the form, we need to correctly format the
+object and use the update or create - if we have a slug,
+we're updating an article, otherwise we're creating a new
+one.
+*/
   submitForm = ev => {
     ev.preventDefault();
     const article = {
@@ -48,12 +82,18 @@ class Editor extends Component {
       body: this.state.body,
       tagList: this.state.tagList
     };
+    const slug = { slug: this.props.match.params.slug };
+    const promise = this.props.match.params.slug
+      ? services.Articles.update(Object.assign(article, slug)) //object merge
+      : services.Articles.create(article);
 
-    this.props.onSubmit(services.Articles.create(article));
+    this.props.onSubmit(promise);
   };
 
   removeTag = tag => {
-    console.log(tag);
+    this.setState({
+      tagList: [...this.state.tagList.filter(t => t !== tag)]
+    });
   };
 
   render() {
