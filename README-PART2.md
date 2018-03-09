@@ -575,3 +575,79 @@ case "ARTICLE_SUBMITTED":
 # Part-38
 
 ### The answers you've been seeking.
+
+* Are are made a couple more Article Components.
+
+  1.  `ArticleMeta.js` this is to show the Author details of the Aritcle under the title
+  2.  `ArticleActions.js` this is part of the Article Meta that will only show, if the signed in user is infact the auther. These actions include edit and delete.
+
+* For edit and delete article we'll need some Endpoints
+  `router.put("/:article", auth.required, function(req, res, next) {`
+  `router.delete("/:article", auth.required, function(req, res, next) {`
+
+* And we want to ensure on the backend that only the user from the decode JWT can update or delete the article. We are going to check like this
+
+```js
+//routes/api/articles.js
+//comparing the author id to the payload id that is from the decoded JWT
+ if (req.article.author._id.toString() === req.payload.id.toString()) {
+```
+
+* Now with the endpoints and the actions in place, we need to update the `Editor.js` component to beable to recieve article details, and not just create new ones.
+
+```js
+//components/Editor.js
+
+//added some additional dispatches
+const mapStateToDispatch = dispatch => ({
+  onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED", payload })	+  onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED", payload }),
+  onLoad: payload => dispatch({ type: "EDITOR_PAGE_LOADED", payload }),
+  onUnload: payload => dispatch({ type: "EDITOR_PAGE_UNLOADED" })
+ });	 });
+
+
+//we want to check for slug and fetch article if there is one
+  componentWillMount() {
+    const slug = this.props.match.params.slug;
+    if (slug) {
+      return this.props.onLoad(services.Articles.get(slug));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.slug !== nextProps.match.params.slug) {
+      if (nextProps.match.params.slug) {
+        this.props.onUnload();
+        return this.props.onLoad(services.Articles.get(this.props.match.params.slug));
+      }
+      this.props.onLoad(null);
+    }
+    console.log(nextProps.tagList);
+    this.setState({
+      ...this.state,
+      tagList: nextProps.tagList || [],
+      ...nextProps
+    });
+  }
+```
+
+* And lastly we need to handle the `services.Articles.get(slug)` in our editor reducer
+
+```js
+//reducers/editor.js
+
+
+case "EDITOR_PAGE_LOADED":
+      return {
+        ...state,
+        articleSlug: action.payload ? action.payload.article.slug : "",
+        title: action.payload ? action.payload.article.title : "",
+        description: action.payload ? action.payload.article.description : "",
+        body: action.payload ? action.payload.article.body : "",
+        tagList: action.payload ? action.payload.article.tagList : []
+      };
+```
