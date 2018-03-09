@@ -576,7 +576,7 @@ case "ARTICLE_SUBMITTED":
 
 ### The answers you've been seeking.
 
-* Are are made a couple more Article Components.
+* We made a couple more Article Components.
 
   1.  `ArticleMeta.js` this is to show the Author details of the Aritcle under the title
   2.  `ArticleActions.js` this is part of the Article Meta that will only show, if the signed in user is infact the auther. These actions include edit and delete.
